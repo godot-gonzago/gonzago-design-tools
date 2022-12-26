@@ -4,7 +4,7 @@ Tools for Gonzago design assets.
 
 ## Gettings started
 
-setup.cmd
+<https://python-poetry.org/docs/#installation>
 
 ## Tools
 
