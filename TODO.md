@@ -17,6 +17,11 @@
     - <https://docs.python.org/3/library/importlib.html#module-importlib.resources>
     - <https://python-packaging.readthedocs.io/en/latest/index.html>
     - <https://dev.to/bowmanjd/build-command-line-tools-with-python-poetry-4mnc>
+    - <https://github.com/icgood/continuous-docs>
+    - <https://github.com/marketplace/actions/python-markdown-documentation>
+    - <https://daler.github.io/sphinxdoc-test/includeme.html>
+    - <https://github.com/NiklasRosenstein/pydoc-markdown>
+    - <https://www.mkdocs.org/user-guide/writing-your-docs/>
     - add .gitattributes in tools?
         - <https://stackoverflow.com/questions/6670140/how-do-i-set-all-files-in-a-subdirectory-to-use-a-specific-eol-using-gitattribut>
         - <https://gist.github.com/dreftymac/a589eea7d67e79bd84fe>
