@@ -1,0 +1,158 @@
+# TODO
+
+- Restructuring
+    - <https://medium.com/coders-camp/60-python-projects-with-source-code-919cd8a6e512>
+    - <https://keathmilligan.net/5-project-templates>
+    - <https://github.com/keathmilligan/python-app-template>
+    - <https://python-textbok.readthedocs.io/en/latest/Introduction.html>
+    - <https://setuptools.pypa.io/en/latest/userguide/index.html>
+    - <https://www.pythonguis.com/tutorials/packaging-pyqt5-pyside2-applications-windows-pyinstaller/>
+    - <https://gitlab.com/megabyte-labs/templates/python-cli>
+    - <https://www.mndwrk.com/blog/python-click-or-how-to-write-professional-cli-applications>
+    - <https://opensource.com/article/22/7/bootstrap-python-command-line-application>
+    - <https://code.visualstudio.com/docs/python/environments>
+    - <https://python-3-patterns-idioms-test.readthedocs.io/en/latest/>
+    - <https://stackoverflow.com/questions/4042905/what-is-main-py>
+    - <https://packaging.python.org/en/latest/guides/packaging-namespace-packages/#native-namespace-packages>
+    - <https://docs.python.org/3/library/importlib.html#module-importlib.resources>
+    - <https://python-packaging.readthedocs.io/en/latest/index.html>
+    - <https://dev.to/bowmanjd/build-command-line-tools-with-python-poetry-4mnc>
+    - add .gitattributes in tools?
+        - <https://stackoverflow.com/questions/6670140/how-do-i-set-all-files-in-a-subdirectory-to-use-a-specific-eol-using-gitattribut>
+        - <https://gist.github.com/dreftymac/a589eea7d67e79bd84fe>
+    - add .gitignore in tools as python ignores are only needed there?
+    - Make better setup batch (maybe integrate into run.cmd?) - Do in python?
+        - <https://stackoverflow.com/questions/9307512/create-a-batch-file-with-multiple-options>
+        - Init check
+            - Python installed
+                - Ask if user wants to open download website
+                    - open url with following command: `start https://www.python.org/downloads/`
+            - Virtual environment created
+        - Options if installed
+            - Recreate virtual environment
+                - Wizard like with choices
+                    - Install pip tools
+            - Update virtual environment/packages etc.
+            - <https://pipenv.pypa.io/en/latest/>
+            - ...
+    - Make better run batch - Do in python except intial python check?
+        - Call init check in setup.cmd via passing argument
+        - Options
+            - Enter Setup
+            - Enter virtual environment (get user input with active environment)
+            - Run all generators
+            - Run specific generator
+                - <https://ss64.com/nt/>
+                - <https://stackoverflow.com/questions/54284559/get-all-files-with-a-specific-extension>
+                - <https://superuser.com/questions/1610276/write-bat-file-and-execute-command-based-on-input-windows>
+            - ...
+    - Add PipTools batches or something (on setup?)
+        - <https://github.com/jazzband/pip-tools>
+        - <https://note.nkmk.me/en/python-pip-install-requirements/>
+        - Directly in python? <https://www.activestate.com/resources/quick-reads/how-to-install-python-packages-using-a-script/>
+    - <https://peps.python.org/pep-0008/>
+    - Visual Studio code integration?
+        - <https://code.visualstudio.com/docs/editor/tasks>
+        - <https://realpython.com/advanced-visual-studio-code-python/>
+            - <https://realpython.com/advanced-visual-studio-code-python/#configuring-a-launch-file>
+    - Python Poetry Visual Studio Code
+        - <https://www.pythoncheatsheet.org/blog/python-projects-with-poetry-and-vscode-part-1>
+        - <https://www.pythoncheatsheet.org/blog/python-projects-with-poetry-and-vscode-part-2>
+        - <https://openqa-bites.github.io/posts/2022-02-15-vscode-poetry/>
+        - <https://zhauniarovich.com/post/2020/2020-04-starting-new-python-project/>
+    - Git Attributes
+        - <https://git-scm.com/docs/gitattributes>
+        - <https://www.pixelite.co.nz/article/using-git-attributes-exclude-files-your-release/>
+        - <https://docs.github.com/en/repositories/working-with-files/managing-files/customizing-how-changed-files-appear-on-github>
+        - <https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases>
+        - <https://github.com/Richienb/git-files/blob/master/files/.gitattributes>
+        - <https://github.com/git/git/blob/master/.gitattributes>
+        - <https://github.com/git/git/blob/master/userdiff.c>
+- Python basics
+    - <https://docs.python-guide.org/>
+    - <https://betterprogramming.pub/write-better-python-scripts-ce58c1ebf690>
+    - <https://docs.python.org/3/library/typing.html>
+    - <https://data-flair.training/blogs/python-best-practices/>
+    - <https://towardsdatascience.com/the-good-way-to-structure-a-python-project-d914f27dfcc9>
+    - <https://simpleprogrammer.com/python-best-practices/>
+    - <https://climbtheladder.com/10-python-project-setup-best-practices/>
+    - <https://github.com/yngvem/python-project-structure#the-setup-files>
+    - <https://github.com/rochacbruno/python-project-template>
+    - <https://blog.wolt.com/engineering/2022/08/11/project-template-for-modern-python-packages/>
+    - <https://lyz-code.github.io/blue-book/coding/python/python_project_template/>
+    - <https://lyz-code.github.io/blue-book/coding/python/python_project_template/python_cli_template/>
+    - <https://github.com/d-w-d/python-project-template>
+    - <https://zhauniarovich.com/post/2020/2020-04-starting-new-python-project/>
+    - Make better use of classes etc.
+    - <https://www.geeksforgeeks.org/usage-of-__main__-py-in-python/>
+    - <https://dev.to/codemouse92/dead-simple-python-project-structure-and-imports-38c6>
+    - <https://chriswarrick.com/blog/2014/09/15/python-apps-the-right-way-entry_points-and-scripts/>
+    - <https://setuptools.pypa.io/en/latest/userguide/quickstart.html>
+        - <https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/>
+        - <https://stackoverflow.com/questions/62983756/what-is-pyproject-toml-file-for>
+        - <https://godatadriven.com/blog/a-practical-guide-to-setuptools-and-pyproject-toml/>
+        - <https://ianhopkinson.org.uk/2022/02/understanding-setup-py-setup-cfg-and-pyproject-toml-in-python/>
+    - Setup.py reference <https://github.com/jamesabel/pyship>
+    - <https://blog.emacsos.com/bootstrap-a-python-project.html>
+- File modified cache using MD5 or something of the sort.
+    - We then can crawl through the filesystem and only handle sources with changes.
+    - <https://docs.python.org/3/library/os.path.html#os.path.getmtime>
+    - <https://realpython.com/python-pathlib/#find-the-last-modified-file>
+    - <https://www.debugpointer.com/python/create-md5-hash-of-a-file-in-python>
+    - <https://docs.python.org/3/library/hashlib.html#file-hashing>
+    - <https://www.geeksforgeeks.org/write-a-dictionary-to-a-file-in-python/>
+- Crawl through filesystem (recursion?) and keep paths.
+    - <https://thispointer.com/python-how-to-get-list-of-files-in-directory-and-sub-directories/>
+    - <https://www.delftstack.com/howto/python/python-list-all-files-in-directory-and-subdirectories/>
+    - <https://pynative.com/python-list-files-in-a-directory/>
+    - <https://docs.python.org/3/library/os.html#os.DirEntry>
+- Some sort of build config might be necessairy to specify what needs to be done.
+- Conversion from svg to png.
+    - <https://clay-atlas.com/us/blog/2021/03/08/python-en-svglib-convert-svg-png/>
+    - <https://cairosvg.org/>
+    - <https://github.com/deeplook/svglib>
+- Conversion svg or whatever to ico etc.
+    - <https://docs.godotengine.org/en/stable/tutorials/export/changing_application_icon_for_windows.html>
+        - min 16×16, 32×32, 48×48, 64×64, 128×128, 256×256
+        - <https://en.wikipedia.org/wiki/ICO_(file_format)>
+        - <https://www.geeksforgeeks.org/convert-png-to-ico-with-pillow-in-python/>
+        - <https://learning-python.com/iconify.html>
+        - <https://github.com/python-pillow/Pillow/pull/6122>
+        - <https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#ico>
+    - <https://docs.fileformat.com/image/icns/>
+        - <https://en.wikipedia.org/wiki/Apple_Icon_Image_format>
+        - <https://pypi.org/project/icnsutil/>
+        - <https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#icns>
+- Get real color info from Godot source.
+    - Extract from source code via regex <https://github.com/godotengine/godot/blob/master/editor/editor_themes.cpp>
+        - <https://regexr.com/399o9>
+        - <https://regexr.com/3ai9g>
+        - add_conversion_color_pair("{dark}", "{light}"); // {comment}
+        - Maybe this is too dumb and we go back to yamls done manually, because this shouldn't change that often
+    - List of color palette formats
+        - <https://www.cyotek.com/cyotek-palette-editor/supported-palette-formats>
+            - 18-bit RGB VGA Palette, pal
+            - 24-bit RGB VGA Palette, pal
+            - Adobe Colour Table, act
+            - Adobe Photoshop Colour Swatch, aco
+            - Adobe Swatch Exchange, ase
+            - CoreDRAW4, pal, xml
+            - DeluxePaint Image, bbm, lbm
+            - Fractint, map
+            - GIMP, gpl
+            - Gravit, gvswatch
+            - Hex, hex
+            - JASC, pal, PspPalette
+            - Microsoft RIFF, pal
+            - Paint.NET, txt
+        - <https://lospec.com/palette-list/fuzzyfour>
+            - PNG 1px
+            - PNG 8px
+            - PNG 32px
+            - PAL File (JASC)
+            - Photoshop ASE
+            - Paint.Net TXT
+            - GIMP GPL
+            - HEX File
+- How to handle 3D assets and sound/video assets and themes and so forth?
+    - Probably export manually as it is to much of a hassle to automate

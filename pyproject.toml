@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "gonzago"
+version = "0.0.1"
+description = "Automation and tooling for Gonzago Framework design elements."
+authors = [
+  "David Krummenacher and Gonzago Framework contributors "
+]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/godot-gonzago/gonzago-design-tools"
+documentation = "https://github.com/godot-gonzago/gonzago-design-tools/wiki"
+packages = [
+  { include = "gonzago", from = "src" }
+]
+
+[tool.poetry.urls]
+"Issue Tracker" = "https://github.com/godot-gonzago/gonzago-design-tools/issues"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+CairoSVG = "^2.5.2"
+Pillow = "^9.3.0"
+PyYAML = "^6.0"
+requests = "^2.28.1"
+scour = "^0.38.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+pytest-mock = "^3.10.0"
+black = {version = "^23.1a1", allow-prereleases = true}
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^5.3.0"
+furo = "^2022.12.7"
+
+[build-system]
+requires = [
+  "poetry-core"
+]
+build-backend = "poetry.core.masonry.api"
