@@ -85,10 +85,26 @@ BLUE_BITSHIFT: int = 2
 ALPHA_BITMASK: int = 0x000000FF
 ALPHA_BITSHIFT: int = 0
 
-
-@dataclass
-class Color(int):
+# https://zetcode.com/python/magicmethods/
+class Color:
     """Class that provides color value representation and functionality."""
+
+    _r: float = 0.0
+    _g: float = 0.0
+    _b: float = 0.0
+    _a: float = 1.0
+
+    def __init__(self, r: float = 0.0, g: float = 0.0, b: float = 0.0, a: float = 1.0):
+        self.r = r
+        self.g = g
+        self.b = b
+        self.a = a
+
+    def _clamp01(self, value: float) -> float:
+        return 0.0 if value < 0.0 else 1.0 if value > 1.0 else value
+
+    def _clamp255(self, value: int) -> int:
+        return 0 if value < 0 else 255 if value > 255 else value
 
     # https://www.geeksforgeeks.org/difference-between-attributes-and-properties-in-python/
     # https://github.com/WebJournal/journaldev/tree/master/Python-3/basic_examples
@@ -96,36 +112,36 @@ class Color(int):
     # https://github.com/WebJournal/journaldev/blob/master/Python-3/basic_examples/not_equal_operator.py
 
     @property
-    def r(self) -> int:
-        return 0
+    def r(self) -> float:
+        return self._r
 
     @r.setter
-    def r(self, value: int):
-        pass
+    def r(self, value: float):
+        self._r = self._clamp01(value)
 
     @property
-    def g(self) -> int:
-        return 0.0
+    def g(self) -> float:
+        return self._g
 
     @g.setter
-    def g(self, value: int):
-        pass
+    def g(self, value: float):
+        self._g = self._clamp01(value)
 
     @property
-    def b(self) -> int:
-        return 0.0
+    def b(self) -> float:
+        return self._b
 
     @b.setter
-    def b(self, value: int):
-        pass
+    def b(self, value: float):
+        self._b = self._clamp01(value)
 
     @property
-    def a(self) -> int:
-        return 0.0
+    def a(self) -> float:
+        return self._a
 
     @a.setter
-    def a(self, value: int):
-        pass
+    def a(self, value: float):
+        self._a = self._clamp01(value)
 
     def __str__(self):
         return self.to_hex_rgb()
@@ -137,20 +153,27 @@ class Color(int):
         # TODO:
         # tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
-        c: Color = int.__new__(Color, int(color.lstrip("#").lower(), 16))
-        return c
+        color = color.lstrip("#").lower()
+        return Color(
+            int(color[0:2], 16) / 255.0,
+            int(color[2:4], 16) / 255.0,
+            int(color[4:6], 16) / 255.0
+        )
 
-    def to_hex(self) -> str:
-        return hex(self)
+    #def to_hex(self) -> str:
+    #    return hex(self)
 
     def to_hex_rgb(self) -> str:
-        return f"#{self:06x}"
+        r: int = int(self.r * 255)
+        g: int = int(self.g * 255)
+        b: int = int(self.b * 255)
+        return f"#{r:02x}{g:02x}{b:02x}"
 
     def to_rgb32(self) -> RGB32:
         return RGB32(self.r, self.g, self.b)
 
     def to_rgb(self) -> RGB:
-        return RGBA(self.r, self.g, self.b)
+        return RGB(self.r, self.g, self.b)
 
 
 def getrgb(color):
