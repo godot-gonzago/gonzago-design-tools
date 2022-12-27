@@ -24,6 +24,7 @@
     - <https://www.mkdocs.org/user-guide/writing-your-docs/>
     - <https://www.toptal.com/python/in-depth-python-logging>
     - <https://www.crowdstrike.com/guides/python-logging/>
+    - <https://zetcode.com/python/magicmethods/>
     - add .gitattributes in tools?
         - <https://stackoverflow.com/questions/6670140/how-do-i-set-all-files-in-a-subdirectory-to-use-a-specific-eol-using-gitattribut>
         - <https://gist.github.com/dreftymac/a589eea7d67e79bd84fe>
