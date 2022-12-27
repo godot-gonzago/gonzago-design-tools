@@ -1,5 +1,9 @@
+import click
+
+
+@click.command()
 def main():
-    pass
+    click.echo("Hello!")
 
 
 if __name__ == "__main__":
