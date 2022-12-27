@@ -5,26 +5,81 @@ from typing import NamedTuple
 
 from PIL.ImageColor import colormap as ColorMap
 
+# https://pillow.readthedocs.io/en/stable/reference/ImageColor.html
 # https://docs.python.org/3/library/colorsys.html#module-colorsys
 
 
+RED_BITMASK: int = 0xFF000000
+GREEN_BITMASK: int = 0x00FF0000
+BLUE_BITMASK: int = 0x0000FF00
+ALPHA_BITMASK: int = 0x000000FF
+
+
 class RGB32(NamedTuple):
-    r: int
-    g: int
-    b: int
-    a: int
+    r: int = 0
+    g: int = 0
+    b: int = 0
+
+
+class RGBA32(RGB32):
+    a: int = 255
 
 
 class RGB(NamedTuple):
-    r: float
-    g: float
-    b: float
-    a: float
+    r: float = 0.0
+    g: float = 0.0
+    b: float = 0.0
+
+
+class RGBA(RGB):
+    a: float = 1.0
+
+
+class HSV(NamedTuple):
+    h: float = 0.0
+    s: float = 0.0
+    v: float = 0.0
+
+
+class HSVA(HSV):
+    a: float = 1.0
 
 
 @dataclass
 class Color(int):
     """Class that provides color value representation and functionality."""
+
+    @property
+    def r(self) -> int:
+        return 0
+
+    @r.setter
+    def r(self, value: int):
+        pass
+
+    @property
+    def g(self) -> int:
+        return 0.0
+
+    @g.setter
+    def g(self, value: int):
+        pass
+
+    @property
+    def b(self) -> int:
+        return 0.0
+
+    @b.setter
+    def b(self, value: int):
+        pass
+
+    @property
+    def a(self) -> int:
+        return 0.0
+
+    @a.setter
+    def a(self, value: int):
+        pass
 
     def __str__(self):
         return self.to_hex_rgb()
@@ -45,13 +100,112 @@ class Color(int):
     def to_hex_rgb(self) -> str:
         return f"#{self:06x}"
 
+    def to_rgb32(self) -> RGB32:
+        return RGB32()
+
+
+def getrgb(color):
+    """
+     Convert a color string to an RGB or RGBA tuple. If the string cannot be
+     parsed, this function raises a :py:exc:`ValueError` exception.
+
+    .. versionadded:: 1.1.4
+
+    :param color: A color string
+    :return: ``(red, green, blue[, alpha])``
+    """
+    if len(color) > 100:
+        raise ValueError("color specifier is too long")
+    color = color.lower()
+
+    rgb = colormap.get(color, None)
+    if rgb:
+        if isinstance(rgb, tuple):
+            return rgb
+        colormap[color] = rgb = getrgb(rgb)
+        return rgb
+
+    # check for known string formats
+    if re.match("#[a-f0-9]{3}$", color):
+        return int(color[1] * 2, 16), int(color[2] * 2, 16), int(color[3] * 2, 16)
+
+    if re.match("#[a-f0-9]{4}$", color):
+        return (
+            int(color[1] * 2, 16),
+            int(color[2] * 2, 16),
+            int(color[3] * 2, 16),
+            int(color[4] * 2, 16),
+        )
+
+    if re.match("#[a-f0-9]{6}$", color):
+        return int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)
+
+    if re.match("#[a-f0-9]{8}$", color):
+        return (
+            int(color[1:3], 16),
+            int(color[3:5], 16),
+            int(color[5:7], 16),
+            int(color[7:9], 16),
+        )
+
+    m = re.match(r"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$", color)
+    if m:
+        return int(m.group(1)), int(m.group(2)), int(m.group(3))
+
+    m = re.match(r"rgb\(\s*(\d+)%\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)$", color)
+    if m:
+        return (
+            int((int(m.group(1)) * 255) / 100.0 + 0.5),
+            int((int(m.group(2)) * 255) / 100.0 + 0.5),
+            int((int(m.group(3)) * 255) / 100.0 + 0.5),
+        )
+
+    m = re.match(
+        r"hsl\(\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)%\s*,\s*(\d+\.?\d*)%\s*\)$", color
+    )
+    if m:
+        from colorsys import hls_to_rgb
+
+        rgb = hls_to_rgb(
+            float(m.group(1)) / 360.0,
+            float(m.group(3)) / 100.0,
+            float(m.group(2)) / 100.0,
+        )
+        return (
+            int(rgb[0] * 255 + 0.5),
+            int(rgb[1] * 255 + 0.5),
+            int(rgb[2] * 255 + 0.5),
+        )
+
+    m = re.match(
+        r"hs[bv]\(\s*(\d+\.?\d*)\s*,\s*(\d+\.?\d*)%\s*,\s*(\d+\.?\d*)%\s*\)$", color
+    )
+    if m:
+        from colorsys import hsv_to_rgb
+
+        rgb = hsv_to_rgb(
+            float(m.group(1)) / 360.0,
+            float(m.group(2)) / 100.0,
+            float(m.group(3)) / 100.0,
+        )
+        return (
+            int(rgb[0] * 255 + 0.5),
+            int(rgb[1] * 255 + 0.5),
+            int(rgb[2] * 255 + 0.5),
+        )
+
+    m = re.match(r"rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$", color)
+    if m:
+        return int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
+    raise ValueError(f"unknown color specifier: {repr(color)}")
+
 
 # https://www.webucator.com/article/python-color-constants-module/
 # https://www.cssportal.com/css3-color-names/
 # https://www.w3.org/wiki/CSS/Properties/color/keywords
 # https://www.w3.org/TR/css-color-4/#named-colors
 
-colormap = {
+colormap: dict[str, str] = {
     # X11 colour table from https://drafts.csswg.org/css-color-4/, with
     # gray/grey spelling issues fixed.  This is a superset of HTML 4.0
     # colour names used in CSS 1.
