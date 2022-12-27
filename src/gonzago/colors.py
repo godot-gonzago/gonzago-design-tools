@@ -17,66 +17,15 @@ from PIL.ImageColor import colormap as ColorMap
 # <hwb()> values
 
 
-class RGB32(NamedTuple):
-    r: int = 0
-    g: int = 0
-    b: int = 0
+RGB32 = NamedTuple("RGB32", r=int, g=int, b=int)
+RGBA32 = NamedTuple("RGBA32", r=int, g=int, b=int, a=int)
+RGB = NamedTuple("RGB", r=float, g=float, b=float)
+RGBA = NamedTuple("RGBA", r=float, g=float, b=float, a=float)
+HSV = NamedTuple("HSV", h=float, s=float, v=float)
+HSVA = NamedTuple("HSVA", h=float, s=float, v=float, a=float)
 
+ColorChannel = float | int | str
 
-class RGBA32(NamedTuple):
-    r: int = 0
-    g: int = 0
-    b: int = 0
-    a: int = 255
-
-
-class RGB(NamedTuple):
-    r: float = 0.0
-    g: float = 0.0
-    b: float = 0.0
-
-
-class RGBA(NamedTuple):
-    r: float = 0.0
-    g: float = 0.0
-    b: float = 0.0
-    a: float = 1.0
-
-
-class HSL(NamedTuple):
-    h: float = 0.0
-    s: float = 0.0
-    l: float = 0.0
-
-
-class HSLA(NamedTuple):
-    h: float = 0.0
-    s: float = 0.0
-    l: float = 0.0
-    a: float = 1.0
-
-
-class HSV(NamedTuple):
-    h: float = 0.0
-    s: float = 0.0
-    v: float = 0.0
-
-
-class HSVA(NamedTuple):
-    h: float = 0.0
-    s: float = 0.0
-    v: float = 0.0
-    a: float = 1.0
-
-
-# RGB32 = NamedTuple("RGB32", r=int, g=int, b=int)
-# RGBA32 = NamedTuple("RGBA32", r=int, g=int, b=int, a=int)
-# RGB = NamedTuple("RGB", r=float, g=float, b=float)
-# RGBA = NamedTuple("RGBA", r=float, g=float, b=float, a=float)
-# HSV = NamedTuple("HSV", h=float, s=float, v=float)
-# HSVA = NamedTuple("HSVA", h=float, s=float, v=float, a=float)
-
-ColorChannel = float | int
 
 # https://zetcode.com/python/magicmethods/
 class Color:
@@ -87,8 +36,14 @@ class Color:
     _b: float = 0.0
     _a: float = 1.0
 
-    # TODO: Type should be something like float (0..1) | int (0..255) where conversion happens
-    def __init__(self, r: float = 0.0, g: float = 0.0, b: float = 0.0, a: float = 1.0):
+    # TODO: Type should be something like float (0..1) | int (0..255) | str (if ends in %) where conversion happens
+    def __init__(
+        self,
+        r: ColorChannel = 0.0,
+        g: ColorChannel = 0.0,
+        b: ColorChannel = 0.0,
+        a: ColorChannel = 1.0,
+    ):
         self.r = r
         self.g = g
         self.b = b
@@ -100,11 +55,20 @@ class Color:
     def __str__(self):
         return self.to_hex_rgb()
 
-    def _clamp01(self, value: float) -> float:
-        return 0.0 if value < 0.0 else 1.0 if value > 1.0 else value
+    def _convert_channel(self, value: ColorChannel) -> float | None:
+        if isinstance(value, str):
+            match: re.Match[str] = re.match(r"(\d+|\d+.\d+)%$", value)
+            if match:
+                value = float(match.group[0]) / 100.0
 
-    def _clamp255(self, value: int) -> int:
-        return 0 if value < 0 else 255 if value > 255 else value
+        if isinstance(value, int):
+            value = value / 255.0
+
+        if isinstance(value, float):
+            return 0.0 if value < 0.0 else 1.0 if value > 1.0 else value
+
+        # raise ValueError(f"Cannot convert to color channel: {repr(value)}")
+        return None
 
     # https://www.geeksforgeeks.org/difference-between-attributes-and-properties-in-python/
     # https://github.com/WebJournal/journaldev/tree/master/Python-3/basic_examples
@@ -116,36 +80,44 @@ class Color:
         return self._r
 
     @r.setter
-    def r(self, value: float):
-        self._r = self._clamp01(value)
+    def r(self, value: ColorChannel) -> None:
+        new_value: float = self._convert_channel(value)
+        if new_value:
+            self._r = new_value
 
     @property
     def g(self) -> float:
         return self._g
 
     @g.setter
-    def g(self, value: float):
-        self._g = self._clamp01(value)
+    def g(self, value: ColorChannel) -> None:
+        new_value: float = self._convert_channel(value)
+        if new_value:
+            self._g = new_value
 
     @property
     def b(self) -> float:
         return self._b
 
     @b.setter
-    def b(self, value: float):
-        self._b = self._clamp01(value)
+    def b(self, value: ColorChannel) -> None:
+        new_value: float = self._convert_channel(value)
+        if new_value:
+            self._b = new_value
 
     @property
     def a(self) -> float:
         return self._a
 
     @a.setter
-    def a(self, value: float):
-        self._a = self._clamp01(value)
+    def a(self, value: ColorChannel) -> None:
+        new_value: float = self._convert_channel(value)
+        if new_value:
+            self._a = new_value
 
     # https://www.programiz.com/python-programming/methods/built-in/classmethod
     @classmethod
-    def create(cls, color: str | int | RGB32 | RGBA32 | RGB | RGBA):
+    def create(cls, color: str | int | Sequence):
         if isinstance(color, str):
             color = color.lower()
             return cls(0, 0, 0, 1)
@@ -153,14 +125,17 @@ class Color:
         if isinstance(color, int):
             return cls(0, 0, 0, 1)
 
-        if isinstance(color, RGBA32):
-            return cls(color.r / 255, color.g / 255, color.b / 255, color.a / 255)
-        if isinstance(color, RGB32):
-            return cls(color.r, color.g, color.b)
-        if isinstance(color, RGBA):
-            return cls(color.r, color.g, color.b, color.a)
-        if isinstance(color, RGB):
-            return cls(color.r, color.g, color.b)
+        # if isinstance(color, Sequence):
+        #    length: int = len(color)
+
+        # if isinstance(color, RGBA32):
+        #    return cls(color.r / 255, color.g / 255, color.b / 255, color.a / 255)
+        # if isinstance(color, RGB32):
+        #    return cls(color.r, color.g, color.b)
+        # if isinstance(color, RGBA):
+        #    return cls(color.r, color.g, color.b, color.a)
+        # if isinstance(color, RGB):
+        #    return cls(color.r, color.g, color.b)
 
         c = cls(0, 0, 0, 1)
         return c
@@ -194,11 +169,28 @@ class Color:
         hex_rgb: str = f"#{rgb.r:02x}{rgb.g:02x}{rgb.b:02x}"
         return hex_rgb.upper() if upper else hex_rgb
 
+    # TODO: Make properties?
     def to_rgb32(self) -> RGB32:
         return RGB32(int(self.r * 255), int(self.g * 255), int(self.b * 255))
 
+    def to_rgba32(self) -> RGBA32:
+        return RGBA32(
+            int(self.r * 255), int(self.g * 255), int(self.b * 255), int(self.a * 255)
+        )
+
     def to_rgb(self) -> RGB:
         return RGB(self.r, self.g, self.b)
+
+    def to_rgba(self) -> RGBA:
+        return RGBA(self.r, self.g, self.b, self.a)
+
+    def to_hsv(self) -> HSV:
+        hsv: tuple[float, float, float] = colorsys.rgb_to_hsv(self.r, self.g, self.b)
+        return HSV(hsv[0], hsv[1], hsv[2])
+
+    def to_hsva(self) -> HSVA:
+        hsv: tuple[float, float, float] = colorsys.rgb_to_hsv(self.r, self.g, self.b)
+        return HSVA(hsv.r, hsv.g, hsv.b, self.a)
 
 
 def getrgb(color):
