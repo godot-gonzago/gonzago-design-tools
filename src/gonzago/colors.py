@@ -76,6 +76,7 @@ class HSVA(NamedTuple):
 # HSV = NamedTuple("HSV", h=float, s=float, v=float)
 # HSVA = NamedTuple("HSVA", h=float, s=float, v=float, a=float)
 
+ColorChannel = float | int
 
 # https://zetcode.com/python/magicmethods/
 class Color:
@@ -161,6 +162,11 @@ class Color:
         if isinstance(color, RGB):
             return cls(color.r, color.g, color.b)
 
+        c = cls(0, 0, 0, 1)
+        return c
+
+    @classmethod
+    def from_int(cls, color: int):
         c = cls(0, 0, 0, 1)
         return c
 
