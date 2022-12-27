@@ -55,6 +55,7 @@ class Color:
     def __str__(self):
         return self.to_hex_rgb()
 
+    # TODO: not always 0..1, h might be 0..360, see https://www.w3schools.com/css/css_colors_hsl.asp
     def _convert_channel(self, value: ColorChannel) -> float | None:
         if isinstance(value, str):
             match: re.Match[str] = re.match(r"(\d+|\d+.\d+)%$", value)
