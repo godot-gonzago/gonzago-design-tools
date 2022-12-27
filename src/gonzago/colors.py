@@ -16,7 +16,10 @@ class RGB32(NamedTuple):
     b: int = 0
 
 
-class RGBA32(RGB32):
+class RGBA32(NamedTuple):
+    r: int = 0
+    g: int = 0
+    b: int = 0
     a: int = 255
 
 
@@ -26,7 +29,23 @@ class RGB(NamedTuple):
     b: float = 0.0
 
 
-class RGBA(RGB):
+class RGBA(NamedTuple):
+    r: float = 0.0
+    g: float = 0.0
+    b: float = 0.0
+    a: float = 1.0
+
+
+class HSL(NamedTuple):
+    h: float = 0.0
+    s: float = 0.0
+    l: float = 0.0
+
+
+class HSLA(NamedTuple):
+    h: float = 0.0
+    s: float = 0.0
+    l: float = 0.0
     a: float = 1.0
 
 
@@ -36,7 +55,10 @@ class HSV(NamedTuple):
     v: float = 0.0
 
 
-class HSVA(HSV):
+class HSVA(NamedTuple):
+    h: float = 0.0
+    s: float = 0.0
+    v: float = 0.0
     a: float = 1.0
 
 
@@ -67,6 +89,11 @@ ALPHA_BITSHIFT: int = 0
 @dataclass
 class Color(int):
     """Class that provides color value representation and functionality."""
+
+    # https://www.geeksforgeeks.org/difference-between-attributes-and-properties-in-python/
+    # https://github.com/WebJournal/journaldev/tree/master/Python-3/basic_examples
+    # https://github.com/WebJournal/journaldev/blob/master/Python-3/basic_examples/hash_function.py
+    # https://github.com/WebJournal/journaldev/blob/master/Python-3/basic_examples/not_equal_operator.py
 
     @property
     def r(self) -> int:
@@ -121,6 +148,9 @@ class Color(int):
 
     def to_rgb32(self) -> RGB32:
         return RGB32(self.r, self.g, self.b)
+
+    def to_rgb(self) -> RGB:
+        return RGBA(self.r, self.g, self.b)
 
 
 def getrgb(color):
