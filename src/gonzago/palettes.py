@@ -4,21 +4,21 @@ import re
 
 
 @dataclass
-class Color(int):
+class Color:
     """Class that provides color value representation and functionality."""
 
-    def __str__(self):
-        return hex(self)
+    value: int = 0
 
-    @classmethod
-    def from_string(cls, color: str):
-        color = color.lower()
-        rgb = ColorMap.get(color)
-        #if rgb:
+    def __str__(self):
+        return hex(self.value)
+
+    @staticmethod
+    def from_string(color: str):
+        # rgb = ColorMap.get(color)
+        # if rgb:
         # TODO:
-        #string = string.lstrip('#')
-        #tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
-        return Color()
+        # tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+        return Color(int(color.lstrip("#").lower(), 16))
 
     def to_rgb(self) -> str:
-        return f"#{self:06x}"
+        return f"#{self.value:06x}"

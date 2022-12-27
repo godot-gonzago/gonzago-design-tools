@@ -54,6 +54,9 @@ furo = "^2022.12.7"
 [tool.poetry.scripts]
 gonzago = 'gonzago.__main__:main'
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [build-system]
 requires = [
   "poetry-core"
