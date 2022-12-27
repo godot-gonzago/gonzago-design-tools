@@ -1,13 +1,20 @@
 import colorsys
 import re
 from dataclasses import dataclass
-from typing import NamedTuple
+from typing import NamedTuple, Sequence
 
 from PIL.ImageColor import colormap as ColorMap
 
 # https://pillow.readthedocs.io/en/stable/reference/ImageColor.html
 # https://docs.python.org/3/library/colorsys.html#module-colorsys
 # https://github.com/edaniszewski/colorutils/tree/master/colorutils
+
+# https://developer.mozilla.org/en-US/docs/Web/CSS/color
+# <named-color> values: color: red;
+# <hex-color> values: color: #090; color: #009900; color: #090a; color: #009900aa;
+# <rgb()> values: color: rgb(34, 12, 64, 0.6); color: rgba(34, 12, 64, 0.6);
+# <hsl()> values: color: hsl(30, 100%, 50%, 0.6); color: hsla(30, 100%, 50%, 0.6);
+# <hwb()> values
 
 
 class RGB32(NamedTuple):
@@ -69,21 +76,6 @@ class HSVA(NamedTuple):
 # HSV = NamedTuple("HSV", h=float, s=float, v=float)
 # HSVA = NamedTuple("HSVA", h=float, s=float, v=float, a=float)
 
-RGBA32_MIN = RGBA32(0, 0, 0, 0)
-RGBA32_MAX = RGBA32(255, 255, 255, 255)
-RGBA_MIN = RGBA(0.0, 0.0, 0.0, 0.0)
-RGBA_MAX = RGBA(1.0, 1.0, 1.0, 1.0)
-HSVA_MIN = HSVA(0.0, 0.0, 0.0, 0.0)
-HSVA_MAX = HSVA(1.0, 1.0, 1.0, 1.0)
-
-RED_BITMASK: int = 0xFF000000
-RED_BITSHIFT: int = 6
-GREEN_BITMASK: int = 0x00FF0000
-GREEN_BITSHIFT: int = 4
-BLUE_BITMASK: int = 0x0000FF00
-BLUE_BITSHIFT: int = 2
-ALPHA_BITMASK: int = 0x000000FF
-ALPHA_BITSHIFT: int = 0
 
 # https://zetcode.com/python/magicmethods/
 class Color:
@@ -94,11 +86,18 @@ class Color:
     _b: float = 0.0
     _a: float = 1.0
 
+    # TODO: Type should be something like float (0..1) | int (0..255) where conversion happens
     def __init__(self, r: float = 0.0, g: float = 0.0, b: float = 0.0, a: float = 1.0):
         self.r = r
         self.g = g
         self.b = b
         self.a = a
+
+    def __repr__(self):
+        return f"Color{{r: {self.r}, g: {self.g}, b: {self.b}, a: {self.a}}}"
+
+    def __str__(self):
+        return self.to_hex_rgb()
 
     def _clamp01(self, value: float) -> float:
         return 0.0 if value < 0.0 else 1.0 if value > 1.0 else value
@@ -143,8 +142,27 @@ class Color:
     def a(self, value: float):
         self._a = self._clamp01(value)
 
-    def __str__(self):
-        return self.to_hex_rgb()
+    # https://www.programiz.com/python-programming/methods/built-in/classmethod
+    @classmethod
+    def create(cls, color: str | int | RGB32 | RGBA32 | RGB | RGBA):
+        if isinstance(color, str):
+            color = color.lower()
+            return cls(0, 0, 0, 1)
+
+        if isinstance(color, int):
+            return cls(0, 0, 0, 1)
+
+        if isinstance(color, RGBA32):
+            return cls(color.r / 255, color.g / 255, color.b / 255, color.a / 255)
+        if isinstance(color, RGB32):
+            return cls(color.r, color.g, color.b)
+        if isinstance(color, RGBA):
+            return cls(color.r, color.g, color.b, color.a)
+        if isinstance(color, RGB):
+            return cls(color.r, color.g, color.b)
+
+        c = cls(0, 0, 0, 1)
+        return c
 
     @staticmethod
     def from_string(color: str):
@@ -157,20 +175,21 @@ class Color:
         return Color(
             int(color[0:2], 16) / 255.0,
             int(color[2:4], 16) / 255.0,
-            int(color[4:6], 16) / 255.0
+            int(color[4:6], 16) / 255.0,
         )
 
-    #def to_hex(self) -> str:
-    #    return hex(self)
+    def to_hex(self, upper: bool = False) -> str:
+        rgb: RGB32 = self.to_rgb32()
+        hex_str: str = f"0x{rgb.r:02x}{rgb.g:02x}{rgb.b:02x}"
+        return hex_str.upper() if upper else hex_str
 
-    def to_hex_rgb(self) -> str:
-        r: int = int(self.r * 255)
-        g: int = int(self.g * 255)
-        b: int = int(self.b * 255)
-        return f"#{r:02x}{g:02x}{b:02x}"
+    def to_hex_rgb(self, upper: bool = False) -> str:
+        rgb: RGB32 = self.to_rgb32()
+        hex_rgb: str = f"#{rgb.r:02x}{rgb.g:02x}{rgb.b:02x}"
+        return hex_rgb.upper() if upper else hex_rgb
 
     def to_rgb32(self) -> RGB32:
-        return RGB32(self.r, self.g, self.b)
+        return RGB32(int(self.r * 255), int(self.g * 255), int(self.b * 255))
 
     def to_rgb(self) -> RGB:
         return RGB(self.r, self.g, self.b)
@@ -272,6 +291,7 @@ def getrgb(color):
     raise ValueError(f"unknown color specifier: {repr(color)}")
 
 
+# http://web.simmons.edu/~grovesd/comm244/notes/week3/css-colors
 # https://www.webucator.com/article/python-color-constants-module/
 # https://www.cssportal.com/css3-color-names/
 # https://www.w3.org/wiki/CSS/Properties/color/keywords
