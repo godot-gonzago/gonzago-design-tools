@@ -1,8 +1,8 @@
 {
-    "recommendations": [
-        "davidanson.vscode-markdownlint",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-python.isort"
-    ]
+  "recommendations": [
+    "davidanson.vscode-markdownlint",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.isort"
+  ]
 }

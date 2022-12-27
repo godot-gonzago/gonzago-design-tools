@@ -1,7 +1,9 @@
 {
-    "markdownlint.config": {
-        "MD007": { "indent": 4 }
-    },
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
-    "python.formatting.provider": "black",
+  "markdownlint.config": {
+    "MD007": {
+      "indent": 4
+    }
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "python.formatting.provider": "black",
 }
