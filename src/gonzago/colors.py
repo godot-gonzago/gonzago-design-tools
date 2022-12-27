@@ -7,12 +7,7 @@ from PIL.ImageColor import colormap as ColorMap
 
 # https://pillow.readthedocs.io/en/stable/reference/ImageColor.html
 # https://docs.python.org/3/library/colorsys.html#module-colorsys
-
-
-RED_BITMASK: int = 0xFF000000
-GREEN_BITMASK: int = 0x00FF0000
-BLUE_BITMASK: int = 0x0000FF00
-ALPHA_BITMASK: int = 0x000000FF
+# https://github.com/edaniszewski/colorutils/tree/master/colorutils
 
 
 class RGB32(NamedTuple):
@@ -43,6 +38,30 @@ class HSV(NamedTuple):
 
 class HSVA(HSV):
     a: float = 1.0
+
+
+# RGB32 = NamedTuple("RGB32", r=int, g=int, b=int)
+# RGBA32 = NamedTuple("RGBA32", r=int, g=int, b=int, a=int)
+# RGB = NamedTuple("RGB", r=float, g=float, b=float)
+# RGBA = NamedTuple("RGBA", r=float, g=float, b=float, a=float)
+# HSV = NamedTuple("HSV", h=float, s=float, v=float)
+# HSVA = NamedTuple("HSVA", h=float, s=float, v=float, a=float)
+
+RGBA32_MIN = RGBA32(0, 0, 0, 0)
+RGBA32_MAX = RGBA32(255, 255, 255, 255)
+RGBA_MIN = RGBA(0.0, 0.0, 0.0, 0.0)
+RGBA_MAX = RGBA(1.0, 1.0, 1.0, 1.0)
+HSVA_MIN = HSVA(0.0, 0.0, 0.0, 0.0)
+HSVA_MAX = HSVA(1.0, 1.0, 1.0, 1.0)
+
+RED_BITMASK: int = 0xFF000000
+RED_BITSHIFT: int = 6
+GREEN_BITMASK: int = 0x00FF0000
+GREEN_BITSHIFT: int = 4
+BLUE_BITMASK: int = 0x0000FF00
+BLUE_BITSHIFT: int = 2
+ALPHA_BITMASK: int = 0x000000FF
+ALPHA_BITSHIFT: int = 0
 
 
 @dataclass
@@ -101,7 +120,7 @@ class Color(int):
         return f"#{self:06x}"
 
     def to_rgb32(self) -> RGB32:
-        return RGB32()
+        return RGB32(self.r, self.g, self.b)
 
 
 def getrgb(color):
