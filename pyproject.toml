@@ -9,6 +9,19 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/godot-gonzago/gonzago-design-tools"
 documentation = "https://github.com/godot-gonzago/gonzago-design-tools/wiki"
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Utilities",
+  "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+  "Topic :: Multimedia :: Sound/Audio :: Conversion",
+  "Topic :: Multimedia :: Video :: Conversion",
+  "Topic :: Text Processing"
+]
 packages = [
   { include = "gonzago", from = "src" }
 ]
