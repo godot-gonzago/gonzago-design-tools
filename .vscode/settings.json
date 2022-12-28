@@ -6,4 +6,5 @@
   },
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
   "python.formatting.provider": "black",
+  "autoDocstring.docstringFormat": "sphinx",
 }

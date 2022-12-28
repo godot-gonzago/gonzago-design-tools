@@ -3,6 +3,7 @@
     "davidanson.vscode-markdownlint",
     "ms-python.python",
     "ms-python.vscode-pylance",
-    "ms-python.isort"
+    "ms-python.isort",
+    "njpwerner.autodocstring"
   ]
 }

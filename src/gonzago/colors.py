@@ -1,3 +1,4 @@
+from abc import ABC
 import colorsys
 import re
 from dataclasses import dataclass
@@ -17,6 +18,13 @@ from PIL import ImageColor
 # <hwb()> values
 
 
+# https://docs.python.org/3/library/collections.html#collections.namedtuple
+class ColorDec(NamedTuple):
+    r: float = 0.0
+    g: float = 0.0
+    b: float = 0.0
+
+
 RGB32 = NamedTuple("RGB32", r=int, g=int, b=int)
 RGBA32 = NamedTuple("RGBA32", r=int, g=int, b=int, a=int)
 RGB = NamedTuple("RGB", r=float, g=float, b=float)
@@ -27,7 +35,54 @@ HSVA = NamedTuple("HSVA", h=float, s=float, v=float, a=float)
 ColorChannel = float | int | str
 
 
+# TODO: Handle alpha via mixin? https://www.residentmar.io/2019/07/07/python-mixins.html https://www.datasciencelearner.com/python-mixin-implementation/
+# https://docs.python.org/dev/reference/datamodel.html#customizing-class-creation
+class ColorAlphaMixin:
+    pass
+
+
+# https://docs.python.org/3/reference/datamodel.html#slots
+# https://docs.python.org/dev/library/abc.html
+# https://docs.python.org/dev/reference/datamodel.html#implementing-descriptors
+class BaseColor(ABC):
+    # __match_args__ = ("left", "center", "right")
+    # https://docs.python.org/3/library/collections.abc.html#collections.abc.Hashable
+    # abc.Hashable?`
+    # https://docs.python.org/3/library/abc.html#abc.ABCMeta.__subclasshook__
+
+    def __int__(self) -> int:
+        return ord(self.val)
+
+    def __index__(self):
+        return ord(self.val)
+
+    def __eq__(self, other):
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __str__(self):
+        # return f'({self.x}, {self.y})'
+        return ""
+
+    # def __len__(self):
+    #    pass
+
+    # https://www.pythontutorial.net/python-oop/python-__repr__/
+    # https://www.codingem.com/repr-method-python/
+    def __repr__(self):
+        # return f'Person(name={self.name}, age={self.age})'
+        return ""
+
+
 # https://zetcode.com/python/magicmethods/
+# https://docs.python.org/dev/reference/datamodel.html#specialnames
+# https://docs.python.org/dev/reference/datamodel.html#customizing-instance-and-subclass-checks
+# __hash__()
+# __match_args__
+
+
 class Color:
     """Class that provides color value representation and functionality."""
 
@@ -58,6 +113,10 @@ class Color:
     # TODO: not always 0..1, h might be 0..360, see https://www.w3schools.com/css/css_colors_hsl.asp
     def _convert_channel(self, value: ColorChannel) -> float | None:
         if isinstance(value, str):
+            # if value.endswith("%"):
+            #    value = value.removesuffix("%")
+            #    if value.isnumeric():
+            #        value = float(value) / 100.0
             match: re.Match[str] = re.match(r"(\d+|\d+.\d+)%$", value)
             if match:
                 value = float(match.group[0]) / 100.0
