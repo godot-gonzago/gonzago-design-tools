@@ -28,6 +28,14 @@ NamedColorPair = NamedTuple("NamedColor", name=str, dark=str, light=str)
 # https://net-square.com/yaml-deserialization-attack-in-python.html
 # yaml.add_implicit_resolver in custom loader
 
+# https://stackabuse.com/reading-and-writing-yaml-to-a-file-in-python/
+# https://www.programcreek.com/python/?code=fastly%2Fftw%2Fftw-master%2Fftw%2Futil%2Frequest_to_yaml.py
+
+# https://realpython.com/python-toml/
+
+# https://pypi.org/project/tomlkit/
+# https://github.com/sdispater/tomlkit/blob/master/docs/quickstart.rst
+
 # Maybe just make dictionary derived classes with required keys or something of the sort.
 
 class Palette:
