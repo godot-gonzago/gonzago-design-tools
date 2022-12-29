@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import csv
 import re
 from dataclasses import dataclass
@@ -29,6 +30,7 @@ class ColorValue:
         rgb = ImageColor.getrgb(color)
         return cls(rgb[0], rgb[1], rgb[2], rgb[3] if len(rgb) > 3 else 1.0)
 
+    # maybe just implement format string, might be easier than one method for each.
     def to_hex_rgb(self, upper: bool = False) -> str:
         hex_rgb: str = (
             f"#{int(self.r * 255):02x}{int(self.g * 255):02x}{int(self.b * 255):02x}"
@@ -39,45 +41,28 @@ class ColorValue:
 # TODO: Make name, description mixin https://www.pythontutorial.net/python-oop/python-mixin/
 # TODO: Color groups/categories as well?
 @dataclass
-class ColorDescriptor:
+class ColorInfo:
     name: str
     description: str | None = None
 
 
 @dataclass
-class ThemeDescriptor:
+class ThemeInfo:
     name: str
     description: str | None = None
 
 
 @dataclass
-class ThemeColorMap:
-    # https://www.geeksforgeeks.org/python-using-2d-arrays-lists-the-right-way/
-    # https://www.tutorialspoint.com/python_data_structure/python_2darray.htm
-    # https://appdividend.com/2022/06/02/how-to-convert-python-tuple-to-dataframe/
-    # https://docs.python.org/3/library/collections.abc.html
-    # https://www.geeksforgeeks.org/__getitem__-in-python/
-
-    _themes: list[  # columns
-        ThemeDescriptor
-    ]  # unique names? never empty at least has 'default', first is name of default, copy values from default if new theme is added
-    _colors: list[ColorDescriptor]  # not unique names? rows descriptors
-    _values: list[ColorValue]  # list of all values (2d index, width * row + col)
-
-    # [(theme: int | str | None, color: int | str | None)] for indexing (str = lookup int index?)
-    # [0, 0] get value for theme and color
-    # [0, ] or [0] get list of values for theme
-    # [ , 0] get list of values for color
-    # [] get full ordered list?
-    # TODO: filter for color groups/categories?
-
-
-@dataclass
-class PaletteDescriptor:
+class Palette:
     name: str
     description: str
     categories: list[str]
-    entries: ThemeColorMap
+
+    # unique names. never empty at least has 'default',
+    # first is name of default, copy values from default if new theme is added
+    _theme_info: list[ThemeInfo]
+    _color_info: list[ColorInfo]  # not unique names? rows descriptors
+    _theme_color_values: dict[str, list[ColorValue]]  # list of all values
 
     @classmethod
     def from_godot_source(cls):
@@ -87,6 +72,11 @@ class PaletteDescriptor:
 
     @classmethod
     def from_toml(cls, item: Item):
+        pass
+
+    # This might solve all serialization problems?
+    # Convert to dict with only base types (color as str.)
+    def to_safe_dict(self) -> OrderedDict:
         pass
 
     # https://realpython.com/python-toml/
