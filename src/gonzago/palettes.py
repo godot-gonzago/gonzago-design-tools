@@ -6,6 +6,7 @@ from io import TextIOWrapper
 from pathlib import PurePath
 from tokenize import String
 from typing import Iterator, NamedTuple
+from abc import ABC, abstractmethod
 
 import requests
 import yaml
@@ -16,6 +17,17 @@ from tomlkit.items import Item
 ColorPair = NamedTuple("ColorPair", dark=str, light=str, comment=str, line=int)
 NamedColor = NamedTuple("NamedColor", name=str, color=str)
 NamedColorPair = NamedTuple("NamedColor", name=str, dark=str, light=str)
+
+
+class ITOMLItem(ABC):
+    @abstractmethod
+    @classmethod
+    def from_toml(cls, item: Item):
+        pass
+
+    @abstractmethod
+    def to_toml_item(self) -> Item:
+        pass
 
 
 @dataclass
@@ -38,6 +50,8 @@ class ColorValue:
         return hex_rgb.upper() if upper else hex_rgb
 
 
+# https://www.tutorialspoint.com/How-to-clamp-floating-numbers-in-Python
+
 # TODO: Make name, description mixin https://www.pythontutorial.net/python-oop/python-mixin/
 # TODO: Color groups/categories as well?
 @dataclass
@@ -56,7 +70,7 @@ class ThemeInfo:
 class Palette:
     name: str
     description: str
-    categories: list[str]
+    categories: set[str] | None
 
     # unique names. never empty at least has 'default',
     # first is name of default, copy values from default if new theme is added
