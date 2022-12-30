@@ -20,10 +20,10 @@ NamedColorPair = NamedTuple("NamedColor", name=str, dark=str, light=str)
 
 
 class ITOMLItem(ABC):
-    @abstractmethod
-    @classmethod
-    def from_toml(cls, item: Item):
-        pass
+#    @abstractmethod
+#    @classmethod
+#    def from_toml(cls, item: Item):
+#        pass
 
     @abstractmethod
     def to_toml_item(self) -> Item:
