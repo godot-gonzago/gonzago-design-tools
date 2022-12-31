@@ -1,0 +1,19 @@
+[palette version="1.0.0"]           # Start of palette header (required), optional descriptor version attribute
+name = "Name"                       # Required palette name, strings start with " and end with " and dont need to be on the same line
+desc = "Description"                # Optional description
+                                    # Ignored if not within a string
+[colors themes="default", "light"]  # Start of color list (required) with optional, list of variant theme names (first is always default), if ommited variants are ignored
+"Color name" = "#FFFFFF", "#000000" # Color entry, starts with -, required color name, required first value, optional theme variants in order of themes names
+"Color name" = "#FFFFFF"            # Color entry, starts with -, first value is copied for variant
+"Color name" = "#FFFFFF" # Comment  # Comments on the end of lines are ignored
+# This is a comment                 # Ignored if not within a string
+
+??
+
+https://docs.python.org/3/library/csv.html#csv-fmt-params ?
+
+https://docs.python.org/3/library/configparser.html#mapping-protocol-access ?
+https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#dfn-embedding-metadata
+https://csvw.org/guides/how-to-make-csvw.html
+https://www.geeksforgeeks.org/writing-csv-files-in-python/
+http://donofden.com/blog/2020/03/15/How-to-Validate-JSON-Schema-using-Python
