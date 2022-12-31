@@ -1,17 +1,18 @@
 from abc import ABC
 from dataclasses import dataclass
+from typing import NamedTuple
 from gonzago.math import RangedValue
 
 # https://stackoverflow.com/a/70700159
 # https://docs.python.org/3/howto/descriptor.html#validator-class
 # https://docs.python.org/3/howto/descriptor.html#properties
 
-@dataclass
-class Color:
-    r: float = RangedValue(0.0, 1.0, 0.0)
-    g: float = RangedValue(0.0, 1.0, 0.0)
-    b: float = RangedValue(0.0, 1.0, 0.0)
-    a: float = RangedValue(0.0, 1.0, 1.0)
+
+class Color(NamedTuple):
+    r: float = 0.0
+    g: float = 0.0
+    b: float = 0.0
+    a: float = 1.0
 
 
 # https://stackoverflow.com/questions/55973284/how-to-create-self-registering-factory-in-python

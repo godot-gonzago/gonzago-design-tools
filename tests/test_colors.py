@@ -6,10 +6,10 @@ def test_color(capsys):
     with capsys.disabled():
         print(c)
 
-    c.r = 0.5
-    with capsys.disabled():
-        print(c)
+    #c.r = 0.5
+    #with capsys.disabled():
+    #    print(c)
 
-    c.r = -2.0
-    with capsys.disabled():
-        print(c)
+    #c.r = -2.0
+    #with capsys.disabled():
+    #    print(c)
