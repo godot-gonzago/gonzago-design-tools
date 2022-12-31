@@ -9,3 +9,18 @@ desc = "Description"                # Optional description
 # This is a comment                 # Ignored if not within a string
 
 Use regex for parsing linearly
+
+
+# Name
+Description
+
+## Variants
+
+
+## Values
+| default | light   |            |                   |
+|---------|---------|--------------------------------|
+| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
+| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
+| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
+| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
