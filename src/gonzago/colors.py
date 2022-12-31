@@ -8,28 +8,43 @@ from gonzago.math import clamp01
 
 
 class Color:
-    class _ColorChannel:
-        def __set_name__(self, _, name: str) -> None:
-            self.private_name = "_" + name
-
-        def __get__(self, obj: object, _=None) -> float:
-            return getattr(obj, self.private_name)
-
-        def __set__(self, obj: object, value: float) -> None:
-            if not isinstance(value, float):
-                raise TypeError(f"Expected {value!r} to be a float")
-            setattr(obj, self.private_name, clamp01(value))
-
-    r: float = _ColorChannel()
-    g: float = _ColorChannel()
-    b: float = _ColorChannel()
-    a: float = _ColorChannel()
-
     def __init__(self, r: float, g: float, b: float, a: float = 1.0) -> None:
         self.r = r
         self.g = g
         self.b = b
         self.a = a
+
+    @property
+    def r(self) -> float:
+        return self._r
+
+    @r.setter
+    def r(self, value: float) -> None:
+        self._r = clamp01(value)
+
+    @property
+    def g(self) -> float:
+        return self._g
+
+    @g.setter
+    def g(self, value: float) -> None:
+        self._g = clamp01(value)
+
+    @property
+    def b(self) -> float:
+        return self._b
+
+    @b.setter
+    def b(self, value: float) -> None:
+        self._b = clamp01(value)
+
+    @property
+    def a(self) -> float:
+        return self._a
+
+    @a.setter
+    def a(self, value: float) -> None:
+        self._a = clamp01(value)
 
     def __str__(self) -> str:
         return f"rgba({self.r},{self.g},{self.b},{self.a})"
