@@ -10,17 +10,28 @@ desc = "Description"                # Optional description
 
 Use regex for parsing linearly
 
+Markdown style table?
 
-# Name
-Description
+<!-- Gonzago Design Tools Palette v=1.0.0 -->
+# Palette name
+Palette description
 
-## Variants
+| dark    | light   |            |
+|---------|---------|------------|
+| #FFFFFF | #000000 | Color name | <!-- Comment -->
+| #FFFFFF | #000000 | Color name | <!-- Comment -->
+| #FFFFFF | #000000 | Color name | <!-- Comment -->
+| #FFFFFF | #000000 | Color name | <!-- Comment -->
 
 
-## Values
-| dark    | light   |
-|---------|---------|------------|-------------------|
-| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
-| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
-| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
-| #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
+
+
+
+
+
+// Gonzago Design Tools Palette v=1.0.0
+// Generator comment
+// @name: Palette name
+// @desc: Palette Description
+// @vars: dark, light
+#FFFFFF #000000 Color name // Comment
