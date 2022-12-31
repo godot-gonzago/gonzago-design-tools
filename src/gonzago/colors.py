@@ -50,3 +50,7 @@ class Color(NamedTuple):
 
 
 # Color names api: https://github.com/meodai/color-names
+# https://www.webucator.com/article/python-color-constants-module/
+# https://github.com/matplotlib/matplotlib/blob/main/lib/matplotlib/colors.py
+# https://jiffyclub.github.io/palettable/#palette-interface
+# https://github.com/ubernostrum/webcolors / https://github.com/ubernostrum/webcolors/tree/trunk/src/webcolors
