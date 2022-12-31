@@ -25,6 +25,9 @@ class Color(NamedTuple):
         return sqrt(sum)
 
 
+# Color names api: https://github.com/meodai/color-names
+
+
 # https://stackoverflow.com/questions/55973284/how-to-create-self-registering-factory-in-python
 # https://realpython.com/primer-on-python-decorators/#registering-plugins
 # https://blog.miguelgrinberg.com/post/the-ultimate-guide-to-python-decorators-part-i-function-registration
