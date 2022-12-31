@@ -18,8 +18,8 @@ Description
 
 
 ## Values
-| default | light   |            |                   |
-|---------|---------|--------------------------------|
+| dark    | light   |
+|---------|---------|------------|-------------------|
 | #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
 | #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
 | #FFFFFF | #000000 | Color name | Color description | <!-- Comment -->
