@@ -17,3 +17,6 @@
 
 
 @theme_name:theme_override <- use for override ?? allows for fully dynamic stuff
+
+- basic palette template is just a list of colors
+- derived palette template has a parent template it inherits colors from and can define value overrides
