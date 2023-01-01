@@ -3,15 +3,15 @@ id: palette.id
 name: Palette Name
 description: Palette Description
 colors:
-  - id: color.id
+  namespace.color.id0:
     name: Color 1 Description
     description: Color 1 Desription
     color: "#000000"
-  - id: color.id
+  namespace.color.id1:
     name: Color 2 Description
     description: Color 2 Desription
     color: "#111111"
-  - id: color.id
+  namespace.color.id2:
     name: Color 3 Description
     description: Color 3 Desription
     color: "#222222"

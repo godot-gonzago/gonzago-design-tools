@@ -3,53 +3,56 @@ $id: https://github.com/godot-gonzago/gonzago-design-tools/schemas/palettes
 $schema: https://json-schema.org/draft/2020-12/schema
 
 title: Color palette template
-description: This document describes a template for generating color palette files
+description: This document describes a template that can be used for generating color palette files
 
 type: object
 properties:
   id:
-    description: Palette identifier
+    description: A unique identifier for the palette
     type: string
     pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
     minLength: 1
     maxLength: 128
+#  base:
+#    description: A unique identifier for the palettes base palette
+#    type: string
+#    pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
+#    minLength: 1
+#    maxLength: 128
+
   name:
-    description: Palette name
+    description: Name of the palette
     type: string
   description:
-    description: Palette description text
+    description: A description of the palette
     type: string
   version:
-    description: Palette version
+    description: The palette version
     type: string
     pattern: ^(0|[1-9]+[0-9]*)(\.(0|[1-9]+[0-9]*)){0,2}$
   source:
-    description: Palette source information
+    description: Information on where the palete source came from
     type: string
   colors:
-    description: List of colors in this palette
-    type: array
-    items:
-      description: Color object
-      type: object
-      properties:
-        id:
-          description: Color identifier
-          type: string
-          pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
-          minLength: 1
-          maxLength: 128
-        name:
-          description: Color name
-          type: string
-          minLength: 1
-          maxLength: 128
-        description:
-          description: Color description text
-          type: string
-        color:
-          description: Color rgb hex string
-          type: string
-          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
-      required: [id, color]
+    description: Map of colors in this palette. Keys are used for palette inheritance, splitting and merging
+    type: object
+    patternProperties:
+      '^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$':
+        description: Color object
+        type: object
+        properties:
+          name:
+            description: Color name
+            type: string
+            minLength: 1
+            maxLength: 128
+          description:
+            description: Color description text
+            type: string
+          color:
+            description: Color rgb hex string
+            type: string
+            pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+        required: [color]
+    additionalProperties: false
 required: [id, colors]
