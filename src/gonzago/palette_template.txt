@@ -1,14 +1,19 @@
 // GonzagoDesignToolsPalette v=1.0.0
 // Generator comment
 // @themes: dark, light
-// @name: Palette name
-// @desc: Palette Description
-// @name.dark: Dark palette name
-// @desc: Palette Description
-#FFFFFF #000000 Color name // Comment
-#FFFFFF #000000 Color name // Comment
-#FFFFFF #000000 Color name // Comment
-#FFFFFF #000000 Color name // Comment
-#FFFFFF #000000 Color name // Comment
-#FFFFFF #000000 Color name // Comment
-#FFFFFF #000000 Color name // Comment
+// @name: Dark palette name
+// @desc: Dark palette Description
+// @name.light: Light palette name
+// @desc.light: Light palette Description
+#FFFFFF #000000 Color 1 name // Comment
+#EEEEEE #111111 Color 2 name // Comment
+#DDDDDD #222222 Color 3 name // Comment
+#CCCCCC #333333 Color 4 name // Comment
+#BBBBBB #444444 Color 5 name // Comment
+#AAAAAA #555555 Color 6 name // Comment
+#999999 #666666 Color 7 name // Comment
+
+
+
+
+@theme_name:theme_override <- use for override ?? allows for fully dynamic stuff

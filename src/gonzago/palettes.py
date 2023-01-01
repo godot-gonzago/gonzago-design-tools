@@ -47,17 +47,15 @@ def find_templates(template_folder: Path) -> list[Path]:
 def read_template(template_path: Path) -> PaletteTemplate:
     # https://pythex.org/
     # https://docs.python.org/3/howto/regex.html
-    comment_pattern = re.compile(
-        r'"(#[a-fA-F0-9]{6})".*"(#[a-fA-F0-9]{6})"(?:.*[\/]{2}?[ \t]*(\w+[ \t\w]*))?'
-    )
 
     with template_path.open('r') as f:
         # File header
-        m = re.match(r'^//\s*GonzagoDesignToolsPalette(?:\s+v[ersion]?=(?P<version>1.0.0)\b|$)?', f.readline())
+        m = re.match(r'^[ |\t]*[\/]{2,}[ |\t]*GonzagoDesignToolsPalette', f.readline())
         if not m:
             raise TypeError(f'File {template_path.absolute()} is not a valid palette template file!')
 
-        # comment = r'//\s*(?P<comment>\S.*)?'
+        # comment = r'[\/]{2,}\s*(?P<comment>\S.*)?'
+        # attribute = r'(?:^[ |\t]*[\/]{2,}[ |\t]*@(?P<attr>\w+(?:\.\w+)*)[ |\t]*:[ |\t]*(?P<attr_value>.*))' /gm
         # themes = r'//\s*@themes:\s*(?P<themes>\w+(?:\s*,\s*\w+)?)'
         # name = r'^//\s*@name:\s*(?P<name>[^//|\n]*)(?:$|\s*//\s*(?P<comment>.*)$)' -> not working yet
         # colors = (?P<colors>#[a-fA-F0-9]{6}(?:[ ]+#[a-fA-F0-9]{6})?)[ ]+(?P<name>[^//|\n]+)(?:[ ]*//[ ]*(?P<comment>.*))?
