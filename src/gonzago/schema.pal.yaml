@@ -7,19 +7,6 @@ description: This document describes a template that can be used for generating 
 
 type: object
 properties:
-  id:
-    description: A unique identifier for the palette
-    type: string
-    pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
-    minLength: 1
-    maxLength: 128
-#  base:
-#    description: A unique identifier for the palettes base palette
-#    type: string
-#    pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
-#    minLength: 1
-#    maxLength: 128
-
   name:
     description: Name of the palette
     type: string
@@ -31,28 +18,24 @@ properties:
     type: string
     pattern: ^(0|[1-9]+[0-9]*)(\.(0|[1-9]+[0-9]*)){0,2}$
   source:
-    description: Information on where the palete source came from
+    description: Information on where the palette source came from
     type: string
   colors:
-    description: Map of colors in this palette. Keys are used for palette inheritance, splitting and merging
-    type: object
-    patternProperties:
-      '^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$':
-        description: Color object
-        type: object
-        properties:
-          name:
-            description: Color name
-            type: string
-            minLength: 1
-            maxLength: 128
-          description:
-            description: Color description text
-            type: string
-          color:
-            description: Color rgb hex string
-            type: string
-            pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
-        required: [color]
-    additionalProperties: false
-required: [id, colors]
+    description: List of colors in this palette
+    type: array
+    items:
+      description: The color information
+      type: object
+      properties:
+        name:
+          description: Name of the color
+          type: string
+        description:
+          description: A description of the color
+          type: string
+        color:
+          description: A rgb hex string representing the colors value
+          type: string
+          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+      required: [name, color]
+required: [name, colors]
