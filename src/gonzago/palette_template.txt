@@ -1,37 +1,14 @@
-[palette version="1.0.0"]           # Start of palette header (required), optional descriptor version attribute
-name = "Name"                       # Required palette name, strings start with " and end with " and dont need to be on the same line
-desc = "Description"                # Optional description
-                                    # Ignored if not within a string
-[colors themes="default", "light"]  # Start of color list (required) with optional, list of variant theme names (first is always default), if ommited variants are ignored
-"Color name" = "#FFFFFF", "#000000" # Color entry, starts with -, required color name, required first value, optional theme variants in order of themes names
-"Color name" = "#FFFFFF"            # Color entry, starts with -, first value is copied for variant
-"Color name" = "#FFFFFF" # Comment  # Comments on the end of lines are ignored
-# This is a comment                 # Ignored if not within a string
-
-Use regex for parsing linearly
-
-Markdown style table?
-
-<!-- Gonzago Design Tools Palette v=1.0.0 -->
-# Palette name
-Palette description
-
-| dark    | light   |            |
-|---------|---------|------------|
-| #FFFFFF | #000000 | Color name | <!-- Comment -->
-| #FFFFFF | #000000 | Color name | <!-- Comment -->
-| #FFFFFF | #000000 | Color name | <!-- Comment -->
-| #FFFFFF | #000000 | Color name | <!-- Comment -->
-
-
-
-
-
-
-
-// Gonzago Design Tools Palette v=1.0.0
+// GonzagoDesignToolsPalette v=1.0.0
 // Generator comment
+// @themes: dark, light
 // @name: Palette name
 // @desc: Palette Description
-// @vars: dark, light
+// @name.dark: Dark palette name
+// @desc: Palette Description
+#FFFFFF #000000 Color name // Comment
+#FFFFFF #000000 Color name // Comment
+#FFFFFF #000000 Color name // Comment
+#FFFFFF #000000 Color name // Comment
+#FFFFFF #000000 Color name // Comment
+#FFFFFF #000000 Color name // Comment
 #FFFFFF #000000 Color name // Comment
