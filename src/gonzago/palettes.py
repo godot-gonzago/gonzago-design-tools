@@ -35,7 +35,7 @@ class Palette(list[PaletteEntry]):
 
 
 # Find template files in folder (relative paths)
-def find_templates(template_folder: Path) -> list[Path]:
+def find_templates(template_folder: Path) -> dict:
     # templates: list[Path] = []
     # for path in template_folder.rglob('*.txt'):
     #    templates.append(path.relative_to(input))
