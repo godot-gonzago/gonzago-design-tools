@@ -1,4 +1,5 @@
 ---
+$id: https://github.com/godot-gonzago/gonzago-design-tools/schemas/palettes
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 properties:
@@ -21,6 +22,6 @@ properties:
           type: string
         color:
           type: string
-          format: color
+          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
       required: [name, color]
 required: [name, colors]

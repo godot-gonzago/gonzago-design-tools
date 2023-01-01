@@ -1,5 +1,5 @@
 from pathlib import Path
-from jsonschema import validate
+from jsonschema import Draft202012Validator, validate
 
 import yaml
 import gonzago.palettes
