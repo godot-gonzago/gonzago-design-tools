@@ -1,27 +1,55 @@
 ---
 $id: https://github.com/godot-gonzago/gonzago-design-tools/schemas/palettes
 $schema: https://json-schema.org/draft/2020-12/schema
+
+title: Color palette template
+description: This document describes a template for generating color palette files
+
 type: object
 properties:
-  name:
+  id:
+    description: Palette identifier
     type: string
+    pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
     minLength: 1
     maxLength: 128
+  name:
+    description: Palette name
+    type: string
   description:
+    description: Palette description text
+    type: string
+  version:
+    description: Palette version
+    type: string
+    pattern: ^(0|[1-9]+[0-9]*)(\.(0|[1-9]+[0-9]*)){0,2}$
+  source:
+    description: Palette source information
     type: string
   colors:
+    description: List of colors in this palette
     type: array
     items:
+      description: Color object
       type: object
       properties:
+        id:
+          description: Color identifier
+          type: string
+          pattern: ^[a-zA-Z]+[a-zA-Z0-9]*(\.[a-zA-Z]+[a-zA-Z0-9]*)*$
+          minLength: 1
+          maxLength: 128
         name:
+          description: Color name
           type: string
           minLength: 1
           maxLength: 128
         description:
+          description: Color description text
           type: string
         color:
+          description: Color rgb hex string
           type: string
           pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
-      required: [name, color]
-required: [name, colors]
+      required: [id, color]
+required: [id, colors]

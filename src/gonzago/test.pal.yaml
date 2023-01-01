@@ -1,13 +1,17 @@
 ---
+id: palette.id
 name: Palette Name
 description: Palette Description
 colors:
-  - name: Color 1 Description
+  - id: color.id
+    name: Color 1 Description
     description: Color 1 Desription
     color: "#000000"
-  - name: Color 2 Description
+  - id: color.id
+    name: Color 2 Description
     description: Color 2 Desription
     color: "#111111"
-  - name: Color 3 Description
+  - id: color.id
+    name: Color 3 Description
     description: Color 3 Desription
     color: "#222222"
