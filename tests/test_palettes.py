@@ -1,9 +1,21 @@
 from pathlib import Path
+from jsonschema import validate
+
+import yaml
 import gonzago.palettes
 import tomlkit
 
 
 def test_download(capsys):
     with capsys.disabled():
-        print(gonzago.palettes.find_templates(Path('D:/Users/Dave/Documents/Godot/GonzagoFramework/GonzagoDesignTools/src/gonzago')))
+        print(gonzago.palettes.find_templates(Path(__file__, '../../src/gonzago')))
 
+    palette_path = Path(__file__, '../../src/gonzago/test.pal.yaml')
+    with palette_path.open() as f:
+        palette = yaml.safe_load(f)
+
+    schema_path = Path(__file__, '../../src/gonzago/schema.pal.yaml')
+    with schema_path.open() as f:
+        schema = yaml.safe_load(f)
+
+    validate(palette, schema)
