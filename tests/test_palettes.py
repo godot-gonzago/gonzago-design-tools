@@ -1,14 +1,7 @@
-from pathlib import Path
-
-from jsonschema import ValidationError, validate
-import yaml
-
-from gonzago import palettes
+from gonzago import ROOT_PATH, palettes
 
 
 def test_templates(capsys):
     with capsys.disabled():
-        for template in palettes.get_valid_templates(
-            Path(__file__, "../../src/gonzago")
-        ):
+        for template in palettes.get_palette_templates(ROOT_PATH):
             print(template)

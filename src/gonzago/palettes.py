@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def get_valid_templates(template_folder: Path):
+def get_palette_templates(template_folder: Path):
     import yaml
     from jsonschema import ValidationError, validate
 
