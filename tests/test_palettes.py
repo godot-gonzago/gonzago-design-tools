@@ -1,7 +1,8 @@
-from gonzago import ROOT_PATH, palettes
+from gonzago import ROOT_PATH
+from gonzago.palettes import templates
 
 
 def test_templates(capsys):
     with capsys.disabled():
-        for template in palettes.get_palette_templates(ROOT_PATH):
+        for template in templates.get_valid_templates(ROOT_PATH):
             print(template)
