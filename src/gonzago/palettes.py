@@ -1,34 +1,45 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Generator, NamedTuple
-import re
+from typing import Generator
 
 
-# Find template files in folder (relative paths)
-def find_templates(template_folder: Path) -> list[Path]:
-    # templates: list[Path] = []
-    # for path in template_folder.rglob('*.txt'):
-    #    templates.append(path.relative_to(input))
-    # return templates
-    return list(p.relative_to(template_folder) for p in template_folder.rglob("*.txt"))
+@dataclass
+class PaletteTemplate:
+    source_path: Path
+    relative_path: Path
+    data: dict
 
 
-# Read template from file
-def read_template(template_path: Path):
-    pass
+def get_valid_templates(
+    template_folder: Path,
+) -> Generator[PaletteTemplate, None, None]:
+    import yaml
+    from jsonschema import ValidationError, validate
+
+    # Load palette schema
+    schema_path: Path = Path(__file__).parent.joinpath("palettes.schema.yaml")
+    with schema_path.open() as schema_file:
+        schema: dict = yaml.safe_load(schema_file)
+
+    # Find valid templates in input folder
+    for template_path in template_folder.rglob("*.pal.yaml"):
+        with template_path.open() as template_file:
+            template_data: dict = yaml.safe_load(template_file)
+            try:
+                validate(template_data, schema)
+                template: PaletteTemplate = PaletteTemplate(
+                    template_path.resolve(),
+                    template_path.relative_to(template_folder),
+                    template_data,
+                )
+                yield template
+            except ValidationError:
+                pass
+            except:
+                pass
 
 
-# Generate palettes (exportable data structures from template) list from template
-def generate_palettes(template):  # -> Generator[Palette]:
-    pass
-
-
-# Export palette from all known exporter
-def export_palette(palette, output_folder: Path):
-    pass
-
-
-def build(input_folder: Path, output_folder: Path) -> None:
+def build_palettes(template_folder: Path, output_folder: Path) -> None:
     # find templates in input folder
     # for each template
     #   load template
