@@ -26,8 +26,8 @@ def get_palette_templates(template_folder: Path):
                 pass
 
 
-def build_palettes(template_folder: Path, output_folder: Path) -> None:
-    for template_path, template in get_valid_templates(template_folder):
+def build_palettes_from_templates(template_folder: Path, output_folder: Path) -> None:
+    for template_path, template in get_palette_templates(template_folder):
         rel_path = template_path.relative_to(template_folder)
         print(rel_path)
 
