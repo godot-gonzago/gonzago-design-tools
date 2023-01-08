@@ -34,6 +34,8 @@
 # - Adobe Illustrator, Adobe InDesign
 # - Adobe Photoshop
 # - Xara Designer, Xara Web Designer
+# <http://www.selapa.net/swatches/colors/fileformats.php>
+# <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 from pathlib import Path
 
 from PIL import Image, ImageDraw
