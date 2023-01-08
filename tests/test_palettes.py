@@ -10,9 +10,8 @@ def test_templates(capsys):
             if template.get("source", None):
                 print(template["source"])
 
-            #exporters.export_png_1_palette(template_path.with_suffix(".1x.png"), template)
-            #exporters.export_png_8_palette(template_path.with_suffix(".8x.png"), template)
-            #exporters.export_png_32_palette(template_path.with_suffix(".32x.png"), template)
+            #exporters.export_png_palette(template_path, template)
+            #exporters.export_hex(template_path, template)
 
         for func in exporters._exporter_registry:
             print(func)

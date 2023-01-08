@@ -37,11 +37,11 @@ def exporter(func):
 
 @exporter
 def export_hex(output_path: Path, template_data: dict):
+    output_path = output_path.with_suffix(f".hex")
     with output_path.open("w") as file:
         for color_data in template_data["colors"]:
-            color = color_data["color"]
+            color = color_data["color"].lstrip("#").lower()
             file.write(f"{color}\n")
-        file.write("\n")
 
 
 @exporter
@@ -91,31 +91,20 @@ def export_adobe_swatch_exchange_palette(output_path: Path, template_data: dict)
         file.write(b"\x00\x00\x00\x00")  # Block length (Constant for Group end)
 
 
-def export_png_palette(output_path: Path, template_data: dict, size: int = 1):
-    # https://pythonexamples.org/python-pillow-create-image/
-    # https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html
-    # https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html#PIL.ImageDraw.ImageDraw.rectangle
-    # https://www.geeksforgeeks.org/python-pil-image-save-method/?ref=lbp
+@exporter
+def export_png_palette(
+    output_path: Path, template_data: dict, sizes: set[int] = [1, 8, 32]
+):
     color_count: int = len(template_data["colors"])
-    image: Image = Image.new("RGB", (color_count * size, size))
-    draw = ImageDraw.Draw(image, "RGB")
-    for i in range(color_count):
-        color_data = template_data["colors"][i]
-        color = color_data["color"]
-        draw.rectangle((i * size, 0, i * size + size, size), color)
-    image.save(output_path, "PNG")
 
+    for size in sizes:
+        image: Image = Image.new("RGB", (color_count * size, size))
 
-@exporter
-def export_png_1_palette(output_path: Path, template_data: dict):
-    export_png_palette(output_path, template_data, 1)
+        draw = ImageDraw.Draw(image, "RGB")
+        for i in range(color_count):
+            color_data = template_data["colors"][i]
+            color = color_data["color"]
+            draw.rectangle((i * size, 0, i * size + size, size), color)
 
-
-@exporter
-def export_png_8_palette(output_path: Path, template_data: dict):
-    export_png_palette(output_path, template_data, 8)
-
-
-@exporter
-def export_png_32_palette(output_path: Path, template_data: dict):
-    export_png_palette(output_path, template_data, 32)
+        image_path: Path = output_path.with_suffix(f".x{size}.png")
+        image.save(image_path, "PNG")
