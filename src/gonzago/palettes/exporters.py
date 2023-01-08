@@ -24,6 +24,7 @@
 # - HEX File
 from pathlib import Path
 
+from PIL import Image, ImageDraw
 
 _exporter_registry = []
 
@@ -90,20 +91,31 @@ def export_adobe_swatch_exchange_palette(output_path: Path, template_data: dict)
         file.write(b"\x00\x00\x00\x00")  # Block length (Constant for Group end)
 
 
-@exporter
-def export_png_1_palette(output_path: Path, template_data: dict):
+def export_png_palette(output_path: Path, template_data: dict, size: int = 1):
     # https://pythonexamples.org/python-pillow-create-image/
     # https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html
     # https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html#PIL.ImageDraw.ImageDraw.rectangle
     # https://www.geeksforgeeks.org/python-pil-image-save-method/?ref=lbp
-    pass
+    color_count: int = 1
+    image: Image = Image.new("RGB", (color_count * size, size))
+    draw = ImageDraw.Draw(image)
+    for i in range(color_count):
+        color_data = template_data["colors"][i]
+        color = color_data["color"]
+        draw.rectangle((i * size, 0, i * size + size, size), color)
+    image.save(output_path, "PNG")
+
+
+@exporter
+def export_png_1_palette(output_path: Path, template_data: dict):
+    export_png_palette(output_path, template_data, 1)
 
 
 @exporter
 def export_png_8_palette(output_path: Path, template_data: dict):
-    pass
+    export_png_palette(output_path, template_data, 8)
 
 
 @exporter
 def export_png_32_palette(output_path: Path, template_data: dict):
-    pass
+    export_png_palette(output_path, template_data, 32)
