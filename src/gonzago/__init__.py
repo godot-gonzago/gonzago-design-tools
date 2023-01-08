@@ -1,5 +1,5 @@
 __version__ = "0.0.1"
-__all__ = ["palettes"]
+__all__ = ["colors", "palettes"]
 
 from pathlib import Path
 
