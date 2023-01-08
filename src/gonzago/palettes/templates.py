@@ -4,6 +4,37 @@ import yaml
 from jsonschema import ValidationError, validate
 
 
+class PaletteEntry:
+    def __init__(
+        self,
+        name: str,
+        description: str | None = None,
+        r: int = 0,
+        g: int = 0,
+        b: int = 0,
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.r = r
+        self.g = g
+        self.b = b
+
+
+class Palette:
+    def __init__(
+        self,
+        name: str,
+        description: str | None = None,
+        version: str | None = None,
+        source: str | None = None,
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.version = version
+        self.source = source
+        self.colors = list[PaletteEntry]
+
+
 def get_valid_templates(template_folder: Path):
     # Load palette schema
     schema_path: Path = Path(__file__).parent.joinpath("palettes.schema.yaml")
