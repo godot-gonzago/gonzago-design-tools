@@ -4,6 +4,7 @@ import yaml
 from jsonschema import ValidationError, validate
 
 
+# https://inkscape.gitlab.io/inkscape/doxygen-extensions/colors_8py_source.html
 class Color:
     def __init__(
         self,
