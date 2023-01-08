@@ -6,90 +6,132 @@ source: https://github.com/godotengine/godot/blob/3.5/editor/editor_themes.cpp
 colors:
   - name: White Icon
     color: "#ffffff"
+    color-light: "#414141"
   - name: Common Icon
     color: "#e0e0e0"
+    color-light: "#5a5a5a"
   - name: Icon Shading
     color: "#b4b4b4"
+    color-light: "#363636"
   - name: Icon Highlight
     color: "#f9f9f9"
+    color-light: "#606060"
 
   - name: Animation
     color: "#cea4f1"
+    color-light: "#a85de9"
   - name: Spatial
     color: "#fc9c9c"
+    color-light: "#cd3838"
   - name: 2d
     color: "#a5b7f3"
+    color-light: "#3d64dd"
   - name: 2d Dark
     color: "#708cea"
+    color-light: "#1a3eac"
   - name: Control
     color: "#a5efac"
+    color-light: "#2fa139"
   - name: Mesh
     color: "#ffd684"
+    color-light: "#fea900"
   - name: Shape
     color: "#40a2ff"
+    color-light: "#68b6ff"
 
   - name: Remove
     color: "#ff8484"
+    color-light: "#ff3333"
   - name: Add
     color: "#84ffb1"
+    color-light: "#00db50"
   - name: Selection
     color: "#84c2ff"
+    color-light: "#5caeff"
 
   - name: Success
     color: "#45ff8b"
+    color-light: "#45ff8b"
   - name: Warning
     color: "#dbab09"
+    color-light: "#dbab09"
   - name: Error
     color: "#ff0000"
+    color-light: "#ff0000"
 
   - name: Rainbow - Red
     color: "#ff7070"
+    color-light: "#ff2929"
   - name: Rainbow - Yellow
     color: "#ffeb70"
+    color-light: "#ffe337"
   - name: Rainbow - Green
     color: "#9dff70"
+    color-light: "#74ff34"
   - name: Rainbow - Aqua
     color: "#70ffb9"
+    color-light: "#2cff98"
   - name: Rainbow - Blue
     color: "#70deff"
+    color-light: "#22ccff"
   - name: Rainbow - Purple
     color: "#9f70ff"
+    color-light: "#702aff"
   - name: Rainbow - Pink
     color: "#ff70ac"
+    color-light: "#ff2781"
 
   - name: Type - Variant
     color: "#69ecbd"
+    color-light: "#25e3a0"
   - name: Type - Bool
     color: "#8da6f0"
+    color-light: "#6d8eeb"
   - name: Type - Int
     color: "#7dc6ef"
+    color-light: "#4fb2e9"
   - name: Type - Float
     color: "#61daf4"
+    color-light: "#27ccf0"
   - name: Type - String
     color: "#6ba7ec"
+    color-light: "#4690e7"
   - name: Type - Vector2
     color: "#bd91f1"
+    color-light: "#ad76ee"
   - name: Type - Rect
     color: "#f191a5"
+    color-light: "#ee758e"
   - name: Type - Transform2D
     color: "#c4ec69"
+    color-light: "#96ce1a"
   - name: Type - Vector3
     color: "#e286f0"
+    color-light: "#dc6aed"
   - name: Type - AABB
     color: "#ee7991"
+    color-light: "#ee7991"
   - name: Type - Transform3D
     color: "#f6a86e"
+    color-light: "#f49047"
   - name: Type - Quat
     color: "#ec69a3"
+    color-light: "#ec69a3"
   - name: Type - Basis
     color: "#e3ec69"
+    color-light: "#b2bb19"
   - name: Type - Plane
     color: "#f77070"
+    color-light: "#f77070"
   - name: Type - Path
     color: "#6993ec"
+    color-light: "#6993ec"
   - name: Type - RID
     color: "#69ec9a"
+    color-light: "#2ce573"
   - name: Type - Object
     color: "#79f3e8"
+    color-light: "#12d5c3"
   - name: Type - Dict
     color: "#77edb1"
+    color-light: "#57e99f"
