@@ -1,0 +1,95 @@
+---
+name: Godot 3 Editor Icons
+description: Icon colors based on default editor theme of Godot Engine 3. These colors are replaced by Godot's SVG color mapping based on the chosen theme.
+version: 1.0.0
+source: https://github.com/godotengine/godot/blob/3.5/editor/editor_themes.cpp
+colors:
+  - name: White Icon
+    color: "#ffffff"
+  - name: Common Icon
+    color: "#e0e0e0"
+  - name: Icon Shading
+    color: "#b4b4b4"
+  - name: Icon Highlight
+    color: "#f9f9f9"
+
+  - name: Animation
+    color: "#cea4f1"
+  - name: Spatial
+    color: "#fc9c9c"
+  - name: 2d
+    color: "#a5b7f3"
+  - name: 2d Dark
+    color: "#708cea"
+  - name: Control
+    color: "#a5efac"
+  - name: Mesh
+    color: "#ffd684"
+  - name: Shape
+    color: "#40a2ff"
+
+  - name: Remove
+    color: "#ff8484"
+  - name: Add
+    color: "#84ffb1"
+  - name: Selection
+    color: "#84c2ff"
+
+  - name: Success
+    color: "#45ff8b"
+  - name: Warning
+    color: "#dbab09"
+  - name: Error
+    color: "#ff0000"
+
+  - name: Rainbow - Red
+    color: "#ff7070"
+  - name: Rainbow - Yellow
+    color: "#ffeb70"
+  - name: Rainbow - Green
+    color: "#9dff70"
+  - name: Rainbow - Aqua
+    color: "#70ffb9"
+  - name: Rainbow - Blue
+    color: "#70deff"
+  - name: Rainbow - Purple
+    color: "#9f70ff"
+  - name: Rainbow - Pink
+    color: "#ff70ac"
+
+  - name: Type - Variant
+    color: "#69ecbd"
+  - name: Type - Bool
+    color: "#8da6f0"
+  - name: Type - Int
+    color: "#7dc6ef"
+  - name: Type - Float
+    color: "#61daf4"
+  - name: Type - String
+    color: "#6ba7ec"
+  - name: Type - Vector2
+    color: "#bd91f1"
+  - name: Type - Rect
+    color: "#f191a5"
+  - name: Type - Transform2D
+    color: "#c4ec69"
+  - name: Type - Vector3
+    color: "#e286f0"
+  - name: Type - AABB
+    color: "#ee7991"
+  - name: Type - Transform3D
+    color: "#f6a86e"
+  - name: Type - Quat
+    color: "#ec69a3"
+  - name: Type - Basis
+    color: "#e3ec69"
+  - name: Type - Plane
+    color: "#f77070"
+  - name: Type - Path
+    color: "#6993ec"
+  - name: Type - RID
+    color: "#69ec9a"
+  - name: Type - Object
+    color: "#79f3e8"
+  - name: Type - Dict
+    color: "#77edb1"
