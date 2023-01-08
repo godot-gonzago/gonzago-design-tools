@@ -96,9 +96,9 @@ def export_png_palette(output_path: Path, template_data: dict, size: int = 1):
     # https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html
     # https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html#PIL.ImageDraw.ImageDraw.rectangle
     # https://www.geeksforgeeks.org/python-pil-image-save-method/?ref=lbp
-    color_count: int = 1
+    color_count: int = len(template_data["colors"])
     image: Image = Image.new("RGB", (color_count * size, size))
-    draw = ImageDraw.Draw(image)
+    draw = ImageDraw.Draw(image, "RGB")
     for i in range(color_count):
         color_data = template_data["colors"][i]
         color = color_data["color"]
