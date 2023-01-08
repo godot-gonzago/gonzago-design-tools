@@ -22,6 +22,18 @@
 # - Paint.Net TXT
 # - GIMP GPL
 # - HEX File
+# <https://sk1project.net/palettes/>
+# - sK1
+# - Inkscape
+# - GIMP
+# - Scribus
+# - Karbon
+# - Calligra
+# - LibreOffice
+# - CorelDRAW, Corel PhotoPaint
+# - Adobe Illustrator, Adobe InDesign
+# - Adobe Photoshop
+# - Xara Designer, Xara Web Designer
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -46,17 +58,56 @@ def export_hex(output_path: Path, template_data: dict):
 
 @exporter
 def export_gimp_palette(output_path: Path, template_data: dict):
-    pass
+    output_path = output_path.with_suffix(f".hex")
+    with output_path.open("w") as file:
+        file.write("GIMP Palette\n")
+        file.write(f"#Palette Name: {template_data['name']}\n")
+        if template_data.get("description", None):
+            file.write(f"#Description: {template_data['description']}\n")
+        file.write(f"#Colors: {len(template_data['colors'])}\n")
+
+        for color_data in template_data["colors"]:
+            # [0-255]\t[0-255]\t[0-255]\tcolor_data["name"]
+            color = color_data["color"].lstrip("#").lower()
+            file.write(f"{color}\n")
 
 
 @exporter
 def export_paint_net_palette(output_path: Path, template_data: dict):
     # https://www.getpaint.net/doc/latest/WorkingWithPalettes.html
+    # ;paint.net Palette File
+    # ;Downloaded from Lospec.com/palette-list
+    # ;Palette Name: Lospec500
+    # ;Description: A collaboration from the Lospec Discord server to create a palette celebrating 500 palettes hosted on Lospec.
+    # ;Colors: 42
+    # FF10121c
+    # FF2c1e31
+    # FF6b2643
     pass
 
 
 @exporter
 def export_jasc_palette(output_path: Path, template_data: dict):
+    # https://liero.nl/lierohack/docformats/other-jasc.html
+    # JASC-PAL      <- constant string
+    # 0100          <- constant version of palette file format
+    # 16            <- color count
+    # 255 0 0       <- [0-255] rgb separated by space
+    # 0 255 0
+    # 0 0 255
+    # 255 255 0
+    # 0 255 255
+    # 255 0 255
+    # 100 0 0
+    # 0 100 0
+    # 0 0 100
+    # 100 100 0
+    # 0 100 100
+    # 100 0 100
+    # 200 200 0
+    # 0 200 200
+    # 200 0 200
+    # 255 255 255
     pass
 
 
