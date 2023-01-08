@@ -4,4 +4,4 @@ __all__ = ["palettes"]
 from pathlib import Path
 
 
-ROOT_PATH: Path = Path(__file__).parent.resolve()
+SCRIPTS_PATH: Path = Path(__file__).parent.resolve()

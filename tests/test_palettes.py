@@ -1,10 +1,10 @@
-from gonzago import ROOT_PATH
+from gonzago import SCRIPTS_PATH
 from gonzago.palettes import templates, exporters
 
 
 def test_templates(capsys):
     with capsys.disabled():
-        for template_path, template in templates.get_valid_templates(ROOT_PATH):
+        for template_path, template in templates.get_valid_templates(SCRIPTS_PATH):
             print(template_path)
             print(template)
             if template.get("source", None):
