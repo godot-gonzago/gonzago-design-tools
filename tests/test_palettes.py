@@ -4,8 +4,11 @@ from gonzago.palettes import templates, exporters
 
 def test_templates(capsys):
     with capsys.disabled():
-        for template in templates.get_valid_templates(ROOT_PATH):
+        for template_path, template in templates.get_valid_templates(ROOT_PATH):
+            print(template_path)
             print(template)
+            if template.get("source", None):
+                print(template["source"])
 
         for func in exporters._exporter_registry:
             print(func)

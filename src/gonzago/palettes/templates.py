@@ -4,7 +4,7 @@ import yaml
 from jsonschema import ValidationError, validate
 
 
-class PaletteEntry:
+class Color:
     def __init__(
         self,
         name: str,
@@ -32,7 +32,11 @@ class Palette:
         self.description = description
         self.version = version
         self.source = source
-        self.colors = list[PaletteEntry]
+        self.colors = list[Color]
+
+
+class PaletteTemplate:
+    pass
 
 
 def get_valid_templates(template_folder: Path):
