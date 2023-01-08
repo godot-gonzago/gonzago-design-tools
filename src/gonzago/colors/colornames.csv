@@ -1,0 +1,148 @@
+black,#000000,Black
+silver,#c0c0c0,Silver
+gray,#808080,Gray
+white,#ffffff,White
+maroon,#800000,Maroon
+red,#ff0000,Red
+purple,#800080,Purple
+green,#008000,Green
+lime,#00ff00,Lime
+olive,#808000,Olive
+yellow,#ffff00,Yellow
+navy,#000080,Navy
+blue,#0000ff,Blue
+teal,#008080,Teal
+orange,#ffa500,Orange
+aliceblue,#f0f8ff,Alice Blue
+antiquewhite,#faebd7,Antique White
+aquamarine,#7fffd4,Aquamarine
+azure,#f0ffff,Azure
+beige,#f5f5dc,Beige
+bisque,#ffe4c4,Bisque
+blanchedalmond,#ffebcd,Blanched Almond
+blueviolet,#8a2be2,Blue Violet
+brown,#a52a2a,Brown
+burlywood,#deb887,Burly Wood
+cadetblue,#5f9ea0,Cadet Blue
+chartreuse,#7fff00,Chartreuse
+chocolate,#d2691e,Chocolate
+coral,#ff7f50,Coral
+cornflowerblue,#6495ed,Cornflower Blue
+cornsilk,#fff8dc,Cornsilk
+crimson,#dc143c,Crimson
+cyan,#00ffff,Cyan
+aqua,#00ffff,Aqua
+darkblue,#00008b,Dark Blue
+darkcyan,#008b8b,Dark Cyan
+darkgoldenrod,#b8860b,Dark Goldenrod
+darkgray,#a9a9a9,Dark Gray
+darkgreen,#006400,Dark Green
+darkgrey,#a9a9a9,Dark Grey
+darkkhaki,#bdb76b,Dark Khaki
+darkmagenta,#8b008b,Dark Magenta
+darkolivegreen,#556b2f,Dark Olive green
+darkorange,#ff8c00,Dark Orange
+darkorchid,#9932cc,Dark Orchid
+darkred,#8b0000,Dark Red
+darksalmon,#e9967a,Dark Salmon
+darkseagreen,#8fbc8f,Dark Sea Green
+darkslateblue,#483d8b,Dark Slate Blue
+darkslategray,#2f4f4f,Dark Slate Gray
+darkslategrey,#2f4f4f,Dark Slate Grey
+darkturquoise,#00ced1,Dark Turquoise
+darkviolet,#9400d3,Dark Violet
+deeppink,#ff1493,Deep Pink
+deepskyblue,#00bfff,Deep Sky Blue
+dimgray,#696969,Dim Gray
+dimgrey,#696969,Dim Grey
+dodgerblue,#1e90ff,Dodger Blue
+firebrick,#b22222,Fire Brick
+floralwhite,#fffaf0,Floral White
+forestgreen,#228b22,Forest Green
+gainsboro,#dcdcdc,Gainsboro
+ghostwhite,#f8f8ff,Ghost White
+gold,#ffd700,Gold
+goldenrod,#daa520,Goldenrod
+greenyellow,#adff2f,Green Yellow
+grey,#808080,Grey
+honeydew,#f0fff0,Honey Dew
+hotpink,#ff69b4,Hot Pink
+indianred,#cd5c5c,Indian Red
+indigo,#4b0082,Indigo
+ivory,#fffff0,Ivory
+khaki,#f0e68c,Khaki
+lavender,#e6e6fa,Lavender
+lavenderblush,#fff0f5,Lavender Blush
+lawngreen,#7cfc00,Lawn Green
+lemonchiffon,#fffacd,Lemon Chiffon
+lightblue,#add8e6,Light Blue
+lightcoral,#f08080,Light Coral
+lightcyan,#e0ffff,Light Cyan
+lightgoldenrodyellow,#fafad2,Light Goldenrod Yellow
+lightgray,#d3d3d3,Light Gray
+lightgreen,#90ee90,Light Green
+lightgrey,#d3d3d3,Light Grey
+lightpink,#ffb6c1,Light Pink
+lightsalmon,#ffa07a,Light Salmon
+lightseagreen,#20b2aa,Light Sea Green
+lightskyblue,#87cefa,Light Sky Blue
+lightslategray,#778899,Light Slate Gray
+lightslategrey,#778899,Light Slate Grey
+lightsteelblue,#b0c4de,Light Steel Blue
+lightyellow,#ffffe0,Light Yellow
+limegreen,#32cd32,Lime Green
+linen,#faf0e6,Linen
+magenta,#ff00ff,Magenta
+fuchsia,#ff00ff,Fuchsia
+mediumaquamarine,#66cdaa,Medium Aquamarine
+mediumblue,#0000cd,Medium Blue
+mediumorchid,#ba55d3,Medium Orchid
+mediumpurple,#9370db,Medium Purple
+mediumseagreen,#3cb371,Medium Sea Green
+mediumslateblue,#7b68ee,Medium Slate Blue
+mediumspringgreen,#00fa9a,Medium Spring Green
+mediumturquoise,#48d1cc,Medium Turquoise
+mediumvioletred,#c71585,Medium Violet Red
+midnightblue,#191970,Midnight Blue
+mintcream,#f5fffa,Mint Cream
+mistyrose,#ffe4e1,Misty Rose
+moccasin,#ffe4b5,Moccasin
+navajowhite,#ffdead,Navajo White
+oldlace,#fdf5e6,Old Lace
+olivedrab,#6b8e23,Olive Drab
+orangered,#ff4500,Orange Red
+orchid,#da70d6,Orchid
+palegoldenrod,#eee8aa,Pale Goldenrod
+palegreen,#98fb98,Pale Green
+paleturquoise,#afeeee,Pale Turquoise
+palevioletred,#db7093,Pale Violet Red
+papayawhip,#ffefd5,Papaya Whip
+peachpuff,#ffdab9,Peach Puff
+peru,#cd853f,Peru
+pink,#ffc0cb,Pink
+plum,#dda0dd,Plum
+powderblue,#b0e0e6,Powder Blue
+rosybrown,#bc8f8f,Rosy Brown
+royalblue,#4169e1,Royal Blue
+saddlebrown,#8b4513,Saddle Brown
+salmon,#fa8072,Salmon
+sandybrown,#f4a460,Sandy Brown
+seagreen,#2e8b57,Sea Green
+seashell,#fff5ee,Sea Shell
+sienna,#a0522d,Sienna
+skyblue,#87ceeb,Sky Blue
+slateblue,#6a5acd,Slate Blue
+slategray,#708090,Slate Gray
+slategrey,#708090,Slate Grey
+snow,#fffafa,Snow
+springgreen,#00ff7f,Spring Green
+steelblue,#4682b4,Steel Blue
+tan,#d2b48c,Tan
+thistle,#d8bfd8,Thistle
+tomato,#ff6347,Tomato
+turquoise,#40e0d0,Turquoise
+violet,#ee82ee,Violet
+wheat,#f5deb3,Wheat
+whitesmoke,#f5f5f5,White Smoke
+yellowgreen,#9acd32,Yellow Green
+rebeccapurple,#663399,Rebecca Purple
