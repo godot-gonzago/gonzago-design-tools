@@ -40,6 +40,9 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
+# https://milovantomasevic.com/courses/python-design-patterns-registry/
+# https://github.com/faif/python-patterns/blob/master/patterns/behavioral/registry.py
+# https://github.com/BrianPugh/autoregistry
 _exporter_registry = []
 
 

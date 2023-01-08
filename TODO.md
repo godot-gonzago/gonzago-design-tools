@@ -102,6 +102,7 @@
         - <https://ianhopkinson.org.uk/2022/02/understanding-setup-py-setup-cfg-and-pyproject-toml-in-python/>
     - Setup.py reference <https://github.com/jamesabel/pyship>
     - <https://blog.emacsos.com/bootstrap-a-python-project.html>
+    - <https://github.com/faif/python-patterns>
 - File modified cache using MD5 or something of the sort.
     - We then can crawl through the filesystem and only handle sources with changes.
     - <https://docs.python.org/3/library/os.path.html#os.path.getmtime>
