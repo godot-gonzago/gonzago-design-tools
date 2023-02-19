@@ -8,6 +8,9 @@
 
 __all__ = "Color"
 
+from math import sqrt
+
+
 HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
 
 # _NAME_COLOR
@@ -17,6 +20,7 @@ HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
 
 
 # https://developer.mozilla.org/en-US/docs/Web/CSS/color
+# https://realpython.com/python-property/
 class Color:
     def __init__(
         self,
@@ -31,3 +35,15 @@ class Color:
         self.r = r
         self.g = g
         self.b = b
+
+
+def square_distance(c1: Color, c2: Color) -> float:
+    return pow(c2.r - c1.r, 2) + pow(c2.g - c1.g, 2) + pow(c2.b - c1.b, 2)
+
+
+def distance(c1: Color, c2: Color) -> float:
+    return sqrt(square_distance(c1, c2))
+
+
+# Color spaces?
+# Color conversion?
