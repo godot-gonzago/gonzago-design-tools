@@ -5,7 +5,7 @@ from jsonschema import ValidationError, validate
 
 from gonzago import __version__
 
-__all__ = ["io"]
+__all__ = ["abc", "io"]
 
 
 # https://inkscape.gitlab.io/inkscape/doxygen-extensions/colors_8py_source.html
