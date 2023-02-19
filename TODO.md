@@ -1,5 +1,6 @@
 # TODO
 
+- <https://realpython.com/python-typer-cli/#define-the-project-layout>
 - Restructuring
     - <https://medium.com/coders-camp/60-python-projects-with-source-code-919cd8a6e512>
     - <https://keathmilligan.net/5-project-templates>
