@@ -16,6 +16,7 @@ HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
 # _COLOR_PRETTY_NAME
 
 
+# https://developer.mozilla.org/en-US/docs/Web/CSS/color
 class Color:
     def __init__(
         self,
