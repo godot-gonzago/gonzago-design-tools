@@ -42,7 +42,7 @@ from pathlib import Path
 __all__ = ["PaletteReader", "PaletteWriter"]
 
 # TODO: Reader/Writer name and description?
-# TODO: Config initialize with and get default values?
+# TODO: Config initialize with and get default values? https://docs.python.org/3/library/configparser.html#quick-start
 
 
 class PaletteReader(ABC):
