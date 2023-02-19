@@ -1,0 +1,24 @@
+from abc import ABC, abstractmethod
+from pathlib import Path
+
+__all__ = ["PaletteReader", "PaletteWriter"]
+
+
+class PaletteReader(ABC):
+    @abstractmethod
+    def get_recognized_extensions(self) -> list[str]:
+        return []
+
+    @abstractmethod
+    def read(self, file_path: Path):  # -> Palette:
+        return None
+
+
+class PaletteWriter(ABC):
+    @abstractmethod
+    def get_default_extension(self) -> str:
+        return ""
+
+    @abstractmethod
+    def write(self, file_path: Path, palette):  # : Palette):
+        return None
