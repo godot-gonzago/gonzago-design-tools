@@ -37,6 +37,11 @@
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 from abc import ABC, abstractmethod
+from pathlib import Path
+
+#for i in Path(__file__).parent.glob('[!__]*.py'):
+#    __import__(i[:-3], locals(), globals())
+
 
 __all__ = ["Exporter", "ase", "gimp", "hex", "jasc", "paint_net", "png"]
 
