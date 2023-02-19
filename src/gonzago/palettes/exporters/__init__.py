@@ -49,7 +49,7 @@ __all__ = ["Exporter", "ase", "gimp", "hex", "jasc", "paint_net", "png"]
 
 # https://davidebove.com/blog/2019/09/29/a-modular-template-for-extensible-python-projects/
 # https://dev.to/charlesw001/plugin-architecture-in-python-jla
-# https://www.youtube.com/watch?v=iCE1bDoit9Q
+# https://www.youtube.com/watch?v=iCE1bDoit9Q -> https://github.com/ArjanCodes/2021-plugin-architecture/tree/main/after
 class Exporter(ABC):
 #    _exporters = []
 
@@ -59,8 +59,8 @@ class Exporter(ABC):
 
     @classmethod
     def get_subclasses(cls):
-#        for i in pathlib(__file__).parent.glob('[!__]*.py'):
-#            __import__(i[:-3], locals(), globals())
+#        for path in pathlib.Path(__file__).parent.glob('[!__]*.py'):
+
         for subclass in cls.__subclasses__():
             yield from subclass.get_subclasses()
             yield subclass
