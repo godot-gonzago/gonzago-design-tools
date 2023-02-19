@@ -4,6 +4,17 @@
 # https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
 # https://developer.mozilla.org/en-US/docs/Web/CSS/named-color
 # https://github.com/ubernostrum/webcolors
+# https://pillow.readthedocs.io/en/stable/reference/ImageColor.html
+
+__all__ = "Color"
+
+HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
+
+# _NAME_COLOR
+# _NAME_PRETTY_NAME
+# _COLOR_NAME
+# _COLOR_PRETTY_NAME
+
 
 class Color:
     def __init__(
