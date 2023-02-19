@@ -36,35 +36,51 @@
 # - Xara Designer, Xara Web Designer
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from pathlib import Path
 
-__all__ = ["PaletteReader", "PaletteWriter"]
+# __all__ = ["PaletteReader", "PaletteWriter"]
 
 # TODO: Reader/Writer name and description?
-# TODO: Config initialize with and get default values? https://docs.python.org/3/library/configparser.html#quick-start
+# TODO: Config initialize with and get default values?
 
 
-class PaletteReader(ABC):
+def _check_methods(C, *methods):
+    mro = C.__mro__
+    for method in methods:
+        for B in mro:
+            if method in B.__dict__:
+                if B.__dict__[method] is None:
+                    return NotImplemented
+                break
+        else:
+            return NotImplemented
+    return True
+
+
+class PaletteIOBase(ABC):
     @abstractmethod
-    def get_recognized_extensions(self) -> list[str]:
+    def get_extensions(self) -> list[str]:
         return []
 
+
+class PaletteReader(PaletteIOBase):
     @abstractmethod
     def read(self, file_path: Path):  # -> Palette:
         return None
 
 
-class PaletteWriter(ABC):
-    @abstractmethod
-    def get_default_extension(self) -> str:
-        return ""
-
+class PaletteWriter(PaletteIOBase):
     @abstractmethod
     def write(self, file_path: Path, palette):  # : Palette):
-        return None
+        pass
+
+
+class PaletteWriterReader(PaletteWriter, PaletteReader):
+    pass
 
 
 def find():
     for path in Path(__file__).parent.glob("[!__]*.py"):
+        # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
         print(path)

@@ -21,6 +21,7 @@ HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
 
 # https://developer.mozilla.org/en-US/docs/Web/CSS/color
 # https://realpython.com/python-property/
+# https://docs.python.org/3.11/library/colorsys.html
 class Color:
     def __init__(
         self,
