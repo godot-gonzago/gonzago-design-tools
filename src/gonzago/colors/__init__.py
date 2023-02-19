@@ -5,10 +5,11 @@
 # https://developer.mozilla.org/en-US/docs/Web/CSS/named-color
 # https://github.com/ubernostrum/webcolors
 # https://pillow.readthedocs.io/en/stable/reference/ImageColor.html
-
-__all__ = "Color"
-
 from math import sqrt
+
+from gonzago.colors.data import Color
+
+__all__ = ["Color"]
 
 
 HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
@@ -22,20 +23,20 @@ HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
 # https://developer.mozilla.org/en-US/docs/Web/CSS/color
 # https://realpython.com/python-property/
 # https://docs.python.org/3.11/library/colorsys.html
-class Color:
-    def __init__(
-        self,
-        name: str,
-        description: str | None = None,
-        r: int = 0,
-        g: int = 0,
-        b: int = 0,
-    ) -> None:
-        self.name = name
-        self.description = description
-        self.r = r
-        self.g = g
-        self.b = b
+# class Color:
+#    def __init__(
+#        self,
+#        name: str,
+#        description: str | None = None,
+#        r: int = 0,
+#        g: int = 0,
+#        b: int = 0,
+#    ) -> None:
+#        self.name = name
+#        self.description = description
+#        self.r = r
+#        self.g = g
+#        self.b = b
 
 
 def square_distance(c1: Color, c2: Color) -> float:
