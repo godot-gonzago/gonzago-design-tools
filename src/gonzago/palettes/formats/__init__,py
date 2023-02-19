@@ -36,8 +36,5 @@
 # - Xara Designer, Xara Web Designer
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
-from abc import ABC, ABCMeta, abstractmethod
-from pathlib import Path
 
 #__all__ = ["PaletteIOBase", "PaletteReader", "PaletteWriter", "PaletteWriterReader"]
-

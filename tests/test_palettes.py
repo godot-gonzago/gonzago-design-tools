@@ -1,4 +1,4 @@
-from gonzago.palettes.abc import find_palette_file_handlers
+from gonzago.palettes.io import find_palette_file_handlers
 
 from pathlib import Path
 

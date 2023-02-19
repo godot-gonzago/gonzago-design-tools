@@ -1,7 +1,7 @@
 # Reader and Writer for custom palette format in yaml
 # Validation in here!
 
-from gonzago.palettes.abc import PaletteWriterReader
+from ..io import PaletteWriterReader
 
 
 class YamlPalette(PaletteWriterReader):

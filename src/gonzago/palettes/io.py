@@ -29,6 +29,6 @@ class PaletteWriterReader(PaletteWriter, PaletteReader):
 
 
 def find_palette_file_handlers():
-    for path in Path(__file__).parent.joinpath("io").glob("[!__]*.py"):
+    for path in Path(__file__).parent.joinpath("formats").glob("[!__]*.py"):
         # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
         print(path)
