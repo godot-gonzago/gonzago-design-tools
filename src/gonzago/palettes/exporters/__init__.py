@@ -48,6 +48,7 @@ import pathlib
 __all__ = ["Exporter", "ase", "gimp", "hex", "jasc", "paint_net", "png"]
 
 # https://davidebove.com/blog/2019/09/29/a-modular-template-for-extensible-python-projects/
+# https://www.youtube.com/watch?v=iCE1bDoit9Q
 class Exporter(ABC):
 #    _exporters = []
 
