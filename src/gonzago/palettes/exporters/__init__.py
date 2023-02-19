@@ -37,11 +37,12 @@
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 from abc import ABC, abstractmethod
-from pathlib import Path
-
-#for i in Path(__file__).parent.glob('[!__]*.py'):
-#    __import__(i[:-3], locals(), globals())
-
+#import pkgutil
+#import importlib
+#
+#packages = pkgutil.walk_packages(path=__file__)
+#for importer, name, is_package in packages:
+#    mod = importlib.import_module(name)
 
 __all__ = ["Exporter", "ase", "gimp", "hex", "jasc", "paint_net", "png"]
 
@@ -49,11 +50,11 @@ __all__ = ["Exporter", "ase", "gimp", "hex", "jasc", "paint_net", "png"]
 # https://github.com/faif/python-patterns/blob/master/patterns/behavioral/registry.py
 # https://github.com/BrianPugh/autoregistry
 class Exporter(ABC):
-    _exporters = []
+#    _exporters = []
 
-    def __init_subclass__(cls, **kwargs):
-        super().__init_subclass__(**kwargs)
-        cls._exporters.append(cls)
+#    def __init_subclass__(cls, **kwargs):
+#        super().__init_subclass__(**kwargs)
+#        cls._exporters.append(cls)
 
     @classmethod
     def get_subclasses(cls):
@@ -61,10 +62,10 @@ class Exporter(ABC):
             yield from subclass.get_subclasses()
             yield subclass
 
-    @staticmethod
-    def export_all():
-        #for exporter in Exporter._exporters:
-        print(Exporter._exporters)
+#    @staticmethod
+#    def export_all():
+#        #for exporter in Exporter._exporters:
+#        print(Exporter._exporters)
 
 
     @abstractmethod
