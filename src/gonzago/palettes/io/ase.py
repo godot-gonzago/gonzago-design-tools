@@ -1,8 +1,7 @@
 from pathlib import Path
-from gonzago.palettes.exporters import Exporter
 
 
-class AdobeSwatchExchangeExporter(Exporter):
+class AdobeSwatchExchangeExporter:
     def export(self, template_data: dict):
         print("ASE")
 

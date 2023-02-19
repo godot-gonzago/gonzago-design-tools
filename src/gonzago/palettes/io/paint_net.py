@@ -1,8 +1,7 @@
 from pathlib import Path
-from gonzago.palettes.exporters import Exporter
 
 
-class PaintNetExporter(Exporter):
+class PaintNetExporter:
     def export(self, template_data: dict):
         print("Paint.Net")
 

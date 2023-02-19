@@ -1,8 +1,7 @@
 from pathlib import Path
-from gonzago.palettes.exporters import Exporter
 
 
-class JascExporter(Exporter):
+class JascExporter:
     def export(self, template_data: dict):
         print("Jasc")
 

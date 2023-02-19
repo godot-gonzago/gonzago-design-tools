@@ -2,10 +2,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from gonzago.palettes.exporters import Exporter
 
-
-class PNGExporter(Exporter):
+class PNGExporter:
     def export(self, template_data: dict):
         print("PNG")
 
