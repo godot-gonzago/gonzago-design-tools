@@ -37,6 +37,7 @@
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 from abc import ABC, abstractmethod
+import pathlib
 #import pkgutil
 #import importlib
 #
@@ -46,9 +47,7 @@ from abc import ABC, abstractmethod
 
 __all__ = ["Exporter", "ase", "gimp", "hex", "jasc", "paint_net", "png"]
 
-# https://milovantomasevic.com/courses/python-design-patterns-registry/
-# https://github.com/faif/python-patterns/blob/master/patterns/behavioral/registry.py
-# https://github.com/BrianPugh/autoregistry
+# https://davidebove.com/blog/2019/09/29/a-modular-template-for-extensible-python-projects/
 class Exporter(ABC):
 #    _exporters = []
 
@@ -58,6 +57,8 @@ class Exporter(ABC):
 
     @classmethod
     def get_subclasses(cls):
+#        for i in pathlib(__file__).parent.glob('[!__]*.py'):
+#            __import__(i[:-3], locals(), globals())
         for subclass in cls.__subclasses__():
             yield from subclass.get_subclasses()
             yield subclass
@@ -71,3 +72,30 @@ class Exporter(ABC):
     @abstractmethod
     def export(self, template_data: dict):
         pass
+
+
+# https://milovantomasevic.com/courses/python-design-patterns-registry/
+# https://github.com/faif/python-patterns/blob/master/patterns/behavioral/registry.py
+# https://github.com/BrianPugh/autoregistry
+#_exporter_registry = []
+#
+#
+#def exporter(func):
+#    global _exporter_registry
+#    _exporter_registry.append(func.__name__)
+#    return func
+#
+#
+#@exporter
+#def export_hex(output_path: Path, template_data: dict):
+#    pass
+#
+#
+#@exporter
+#def export_gimp_palette(output_path: Path, template_data: dict):
+#    pass
+#
+#
+#@exporter
+#def export_paint_net_palette(output_path: Path, template_data: dict):
+#    pass
