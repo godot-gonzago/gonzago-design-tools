@@ -5,6 +5,9 @@ from gonzago import __version__
 __all__ = ["templates", "exporters"]
 
 
+from gonzago.palettes.exporters import *
+
+
 def build_palettes_from_templates(template_folder: Path, output_folder: Path) -> None:
     from gonzago.palettes.templates import get_valid_templates
 
