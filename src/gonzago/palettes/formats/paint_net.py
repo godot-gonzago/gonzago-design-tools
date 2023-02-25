@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from gonzago.palettes.palette import Palette
+
 #from gonzago.palettes.io import PaletteWriterReader
 
 
@@ -18,3 +20,15 @@ class PaintNetExporter: #(PaletteWriterReader):
         # FF2c1e31
         # FF6b2643
         pass
+
+    def read(self, file_path: Path) -> Palette:
+        raise NotImplementedError
+
+    def write(self, file_path: Path, palette: Palette):
+        raise NotImplementedError
+
+#        with open(file_path, 'w') as file:
+#            file.write(';paint.net Palette File\n')
+#
+#            for color in palette.colors:
+#                file.write()
