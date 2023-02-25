@@ -1,7 +1,9 @@
 from pathlib import Path
 
+#from gonzago.palettes.io import PaletteWriterReader
 
-class PaintNetExporter:
+
+class PaintNetExporter: #(PaletteWriterReader):
     def export(self, template_data: dict):
         print("Paint.Net")
 
