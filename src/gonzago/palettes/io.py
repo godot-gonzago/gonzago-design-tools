@@ -5,6 +5,8 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+from gonzago.palettes.palette import Palette
+
 
 class PaletteIOBase(ABC):
     @abstractmethod
@@ -14,13 +16,13 @@ class PaletteIOBase(ABC):
 
 class PaletteReader(PaletteIOBase):
     @abstractmethod
-    def read(self, file_path: Path):  # -> Palette:
+    def read(self, file_path: Path) -> Palette:
         raise NotImplementedError
 
 
 class PaletteWriter(PaletteIOBase):
     @abstractmethod
-    def write(self, file_path: Path, palette):  # : Palette):
+    def write(self, file_path: Path, palette: Palette):
         raise NotImplementedError
 
 
