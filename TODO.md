@@ -180,3 +180,7 @@
 - <https://pygobject.readthedocs.io/en/latest/>
 - <https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started>
 - <https://gist.github.com/thomir/8075839>
+- <https://pypyr.io/>
+- <https://www.mypy-lang.org/>
+- <https://pytest-mock.readthedocs.io/en/latest/>
+- <https://github.com/python-poetry/cleo>
