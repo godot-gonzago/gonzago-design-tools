@@ -44,6 +44,7 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
 
 # https://gist.github.com/thomir/8075839
 # https://github.com/jlwoolf/pillow-svg
+# https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started
 def svg_to_png(src_file: Path, out_file: Path) -> None:
     # Sanitize paths
     src_file = src_file.resolve(True)
@@ -53,8 +54,8 @@ def svg_to_png(src_file: Path, out_file: Path) -> None:
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Convert (https://cairosvg.org/documentation/)
-    #from cairosvg import svg2png
-    #svg2png(url=src_file, write_to=out_file)
+    from cairosvg import svg2png
+    svg2png(url=src_file, write_to=out_file)
 
     #from PIL import Image
     #im1 = Image.open(src_file)

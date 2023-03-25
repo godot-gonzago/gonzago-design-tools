@@ -168,3 +168,10 @@
     - Probably export manually as it is to much of a hassle to automate
 - <https://github.com/aegirhall/console-menu>
 - <https://medium.com/edataconsulting/management-of-image-assets-with-github-actions-6aa83a8dad75>
+- <https://github.com/fonttools/fonttools>
+- <https://github.com/jlwoolf/pillow-svg>
+- Cairo system setup on Windows
+    - <https://www.booleanworld.com/get-unix-linux-environment-windows-msys2/>
+    - <https://docs.wand-py.org/en/0.6.11/guide/install.html#install-imagemagick-on-windows>
+    - <https://www.msys2.org/>
+    - <https://cairocffi.readthedocs.io/en/stable/overview.html#installing-cairo-on-windows>
