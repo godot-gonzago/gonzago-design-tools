@@ -51,9 +51,8 @@ def svg_to_png(src_file: Path, out_file: Path) -> None:
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Convert (https://cairosvg.org/documentation/)
-    from cairosvg import svg2png
-
-    svg2png(url=str(src_file), write_to=str(out_file))
+    #from cairosvg import svg2png
+    #svg2png(url=str(src_file), write_to=str(out_file))
 
 
 def build_os_icons() -> None:
