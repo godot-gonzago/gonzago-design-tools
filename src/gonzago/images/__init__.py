@@ -43,9 +43,8 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
 
 
 # https://gist.github.com/thomir/8075839
+# https://github.com/jlwoolf/pillow-svg
 def svg_to_png(src_file: Path, out_file: Path) -> None:
-    #import cairosvg
-
     # Sanitize paths
     src_file = src_file.resolve(True)
     out_file = out_file.with_suffix(".png").resolve()
@@ -54,7 +53,17 @@ def svg_to_png(src_file: Path, out_file: Path) -> None:
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Convert (https://cairosvg.org/documentation/)
-    #cairosvg.svg2png(url=src_file, write_to=out_file)
+    #from cairosvg import svg2png
+    #svg2png(url=src_file, write_to=out_file)
+
+    #from PIL import Image
+    #im1 = Image.open(src_file)
+    #im1.save(out_file)
+
+    #from svglib.svglib import svg2rlg
+    #from reportlab.graphics import renderPM
+    #drawing = svg2rlg(src_file)
+    #renderPM.drawToFile(drawing, out_file, fmt="PNG")
 
 
 def build_os_icons() -> None:

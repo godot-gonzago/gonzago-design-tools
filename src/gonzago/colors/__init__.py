@@ -19,6 +19,12 @@ HEX_COLOR_REGEX_STRING = r"^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
 # _COLOR_NAME
 # _COLOR_PRETTY_NAME
 
+#def hex_to_rgb(hex):
+#    rgb = []
+#    for i in (0, 2, 4):
+#        decimal = int(hex[i:i+2], 16)
+#        rgb.append(decimal)
+#    return tuple(rgb)
 
 # https://developer.mozilla.org/en-US/docs/Web/CSS/color
 # https://realpython.com/python-property/
