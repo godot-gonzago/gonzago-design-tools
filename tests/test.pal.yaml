@@ -24,24 +24,3 @@ colors:
   - name: Color 6 Name
     description: Color 6 Desription
     color: "#0000FF"
-  - name: Group 1 Name
-    description: Group 1 Desription
-    colors:
-      - name: Group 1 Color 1 Name
-        description: Group 1 Color 1 Desription
-        color: "#000000"
-        color-light: "#FFFFFF"
-      - name: Subgroup 1 Name
-        description: Subgroup 1 Desription
-        colors:
-          - name: Subgroup 1 Color 1 Name
-            description: Subgroup 1 Color 1 Desription
-            color: "#111111"
-            color-light: "#EEEEEE"
-  - name: Group 2 Name
-    description: Group 2 Desription
-    colors:
-      - name: Group 2 Color 1 Name
-        description: Group 2 Color 1 Desription
-        color: "#000000"
-        color-light: "#FFFFFF"

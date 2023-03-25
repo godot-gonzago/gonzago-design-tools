@@ -24,60 +24,28 @@ properties:
     description: Information on where the palette source came from
     type: string
   colors:
-    description: List of colors or color groups
+    description: List of colors in this palette
     type: array
     items:
-      oneOf:
-        - $ref: /schemas/palettes/group
-        - $ref: /schemas/palettes/color
+      description: The color information
+      type: object
+      properties:
+        name:
+          description: Name of the color
+          type: string
+        description:
+          description: A description of the color
+          type: string
+        color:
+          description: A rgb hex string representing the colors value
+          type: string
+          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+      patternProperties:
+        "^color-[A-Za-z_][A-Za-z0-9_]*$":
+          description: A rgb hex string representing the variant colors value
+          type: string
+          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+      required: [name, color]
+      unevaluatedProperties: false
 required: [name, colors]
 unevaluatedProperties: false
-
-$defs:
-  group:
-    $id: /schemas/palettes/group
-    $schema: https://json-schema.org/draft/2020-12/schema
-
-    description: A group of colors
-    type: object
-    properties:
-      name:
-        description: Name of the group
-        type: string
-      description:
-        description: A description of the group
-        type: string
-      colors:
-        description: List of colors or subgroups in this group
-        type: array
-        items:
-          oneOf:
-            - $ref: /schemas/palettes/group
-            - $ref: /schemas/palettes/color
-    required: [name, colors]
-    unevaluatedProperties: false
-
-  color:
-    $id: /schemas/palettes/color
-    $schema: https://json-schema.org/draft/2020-12/schema
-
-    description: The color information
-    type: object
-    properties:
-      name:
-        description: Name of the color
-        type: string
-      description:
-        description: A description of the color
-        type: string
-      color:
-        description: A rgb hex string representing the colors value
-        type: string
-        pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
-    patternProperties:
-      "^color-[A-Za-z_][A-Za-z0-9_]*$":
-        description: A rgb hex string representing the variant colors value
-        type: string
-        pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
-    required: [name, color]
-    unevaluatedProperties: false
