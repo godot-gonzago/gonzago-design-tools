@@ -24,10 +24,12 @@ properties:
     description: Information on where the palette source came from
     type: string
   colors:
-    description: List of colors in this palette
+    description: List of colors or color groups
     type: array
     items:
-      $ref: /schemas/palettes/color
+      oneOf:
+        - $ref: /schemas/palettes/group
+        - $ref: /schemas/palettes/color
 required: [name, colors]
 unevaluatedProperties: false
 

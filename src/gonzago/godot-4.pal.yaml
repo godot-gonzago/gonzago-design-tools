@@ -2,7 +2,7 @@
 name: Godot 4 Editor Icons
 description: Icon colors based on default editor theme of Godot Engine 4. These colors are replaced by Godot's SVG color mapping based on the chosen theme.
 version: 1.0.0
-source: https://github.com/godotengine/godot/blob/master/editor/editor_themes.cpp
+source: https://github.com/godotengine/godot/blob/4.0/editor/editor_themes.cpp
 colors:
   - name: Godot Blue
     color: "#478cbf"
@@ -25,6 +25,7 @@ colors:
   - name: Pure blue
     color: "#0000ff"
     color-light: "#0000ff"
+
   - name: GUI - Common icon color
     color: "#e0e0e0"
     color-light: "#5a5a5a"
@@ -43,6 +44,7 @@ colors:
   - name: GUI - Scrollbar grabber highlight color
     color: "#f9f9f9"
     color-light: "#606060"
+
   - name: Animation
     color: "#c38ef1"
     color-light: "#a85de9"
@@ -58,6 +60,7 @@ colors:
   - name: Control
     color: "#8eef97"
     color-light: "#2fa139"
+
   - name: Selection (blue)
     color: "#5fb2ff"
     color-light: "#0079f0"
@@ -67,6 +70,7 @@ colors:
   - name: Gizmo (yellow)
     color: "#f7f5cf"
     color-light: "#615f3a"
+
   - name: Rainbow - Red
     color: "#ff4545"
     color-light: "#ff2929"
@@ -88,6 +92,7 @@ colors:
   - name: Rainbow - Pink
     color: "#ff4596"
     color-light: "#ff2781"
+
   - name: Audio gradients - Yellow
     color: "#e1da5b"
     color-light: "#d6cf4b"
@@ -112,6 +117,7 @@ colors:
   - name: Audio gradients - Color track green
     color: "#288027"
     color-light: "#218309"
+
   - name: Mesh resource (orange)
     color: "#ffca5f"
     color-light: "#fea900"
@@ -121,6 +127,7 @@ colors:
   - name: Shape resource (light blue)
     color: "#a2d2ff"
     color-light: "#4998e3"
+
   - name: Animation editor - 3D Position track
     color: "#ea7940"
     color-light: "#bd5e2c"
@@ -145,6 +152,7 @@ colors:
   - name: Animation editor - Blend Shape track
     color: "#5ad5c4"
     color-light: "#0a9c88"
+
   - name: Control layouts - Highlighted part
     color: "#d6d6d6"
     color-light: "#474747"
@@ -154,6 +162,7 @@ colors:
   - name: Control layouts - Border part
     color: "#919191"
     color-light: "#6e6e6e"
+
   - name: TileSet - New Single Tile
     color: "#fce00e"
     color-light: "#aa8d24"
@@ -163,6 +172,7 @@ colors:
   - name: TileSet - New Atlas
     color: "#c6ced4"
     color-light: "#828f9b"
+
   - name: VisualScript - Variant
     color: "#41ecad"
     color-light: "#25e3a0"
@@ -229,6 +239,7 @@ colors:
   - name: Visual shaders - Functions and expressions
     color: "#cf68ea"
     color-light: "#c050dd"
+
   - name: Error
     color: "#ff5f5f"
     color-light: "#ff5f5f"
