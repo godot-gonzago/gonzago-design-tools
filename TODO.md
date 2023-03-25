@@ -166,3 +166,5 @@
             - HEX File
 - How to handle 3D assets and sound/video assets and themes and so forth?
     - Probably export manually as it is to much of a hassle to automate
+- <https://github.com/aegirhall/console-menu>
+- <https://medium.com/edataconsulting/management-of-image-assets-with-github-actions-6aa83a8dad75>
