@@ -170,8 +170,13 @@
 - <https://medium.com/edataconsulting/management-of-image-assets-with-github-actions-6aa83a8dad75>
 - <https://github.com/fonttools/fonttools>
 - <https://github.com/jlwoolf/pillow-svg>
-- Cairo system setup on Windows
+- Cairo system setup on Windows (install msys2, add folders to environment path variable and install cairo package in msys2 <https://packages.msys2.org/package/mingw-w64-x86_64-cairo?repo=mingw64>, needs system restart)
+    - <https://cairosvg.org/documentation/>
     - <https://www.booleanworld.com/get-unix-linux-environment-windows-msys2/>
     - <https://docs.wand-py.org/en/0.6.11/guide/install.html#install-imagemagick-on-windows>
     - <https://www.msys2.org/>
     - <https://cairocffi.readthedocs.io/en/stable/overview.html#installing-cairo-on-windows>
+    - <https://www.gtk.org/docs/installations/windows>
+- <https://pygobject.readthedocs.io/en/latest/>
+- <https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started>
+- <https://gist.github.com/thomir/8075839>

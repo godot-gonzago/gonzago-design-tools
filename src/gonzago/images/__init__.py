@@ -21,8 +21,8 @@ _SCOUR_OPTIONS = scour.parse_args(
 
 def _minimize_svg(src_file: Path, out_file: Path, scour_options=_SCOUR_OPTIONS) -> None:
     # Sanitize paths
-    src_file = src_file.resolve(True)
-    out_file = out_file.with_suffix(".svg").resolve()
+    src_file: Path = src_file.resolve(True)
+    out_file: Path = out_file.with_suffix(".svg").resolve()
 
     # Ensure folders
     out_file.parent.mkdir(parents=True, exist_ok=True)
@@ -42,29 +42,18 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
         _minimize_svg(src_file, out_file, scour_options)
 
 
-# https://gist.github.com/thomir/8075839
-# https://github.com/jlwoolf/pillow-svg
-# https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started
 def svg_to_png(src_file: Path, out_file: Path) -> None:
     # Sanitize paths
-    src_file = src_file.resolve(True)
-    out_file = out_file.with_suffix(".png").resolve()
+    src_file: Path = src_file.resolve(True)
+    out_file: Path = out_file.with_suffix(".png").resolve()
 
     # Ensure folders
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Convert (https://cairosvg.org/documentation/)
     from cairosvg import svg2png
-    svg2png(url=src_file, write_to=out_file)
 
-    #from PIL import Image
-    #im1 = Image.open(src_file)
-    #im1.save(out_file)
-
-    #from svglib.svglib import svg2rlg
-    #from reportlab.graphics import renderPM
-    #drawing = svg2rlg(src_file)
-    #renderPM.drawToFile(drawing, out_file, fmt="PNG")
+    svg2png(url=str(src_file), write_to=str(out_file))
 
 
 def build_os_icons() -> None:
