@@ -42,6 +42,7 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
         _minimize_svg(src_file, out_file, scour_options)
 
 
+# https://gist.github.com/thomir/8075839
 def svg_to_png(src_file: Path, out_file: Path) -> None:
     #import cairosvg
 
