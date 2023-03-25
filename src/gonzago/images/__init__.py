@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 from scour import scour
 
 _SCOUR_OPTIONS = scour.parse_args(
@@ -20,25 +19,41 @@ _SCOUR_OPTIONS = scour.parse_args(
 )
 
 
+def _minimize_svg(src_file: Path, out_file: Path, scour_options=_SCOUR_OPTIONS) -> None:
+    # Sanitize paths
+    src_file = src_file.resolve(True)
+    out_file = out_file.with_suffix(".svg").resolve()
+
+    # Ensure folders
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+
+    # Optimize
+    scour_options.infilename = src_file
+    scour_options.outfilename = out_file
+    (input, output) = scour.getInOut(scour_options)
+    scour.start(scour_options, input, output)
+
+
 def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -> None:
     for src_file in src_dir.rglob("*.svg"):
         rel_path: Path = src_file.relative_to(src_dir)
-
-        print("Exporting {}...".format(rel_path.as_posix()))
-
         out_file: Path = out_dir.joinpath(rel_path)
-        out_file.parent.mkdir(parents=True, exist_ok=True)
-
-        scour_options.infilename = src_file.resolve()
-        scour_options.outfilename = out_file.resolve()
-        (input, output) = scour.getInOut(scour_options)
-        scour.start(scour_options, input, output)
+        print("Exporting {}...".format(rel_path.as_posix()))
+        _minimize_svg(src_file, out_file, scour_options)
 
 
-def svg_to_png() -> None:
-    # https://cairosvg.org/documentation/
-    # cairosvg.svg2png(url="/path/to/input.svg", write_to="/tmp/output.png")
-    pass
+def svg_to_png(src_file: Path, out_file: Path) -> None:
+    #import cairosvg
+
+    # Sanitize paths
+    src_file = src_file.resolve(True)
+    out_file = out_file.with_suffix(".png").resolve()
+
+    # Ensure folders
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+
+    # Convert (https://cairosvg.org/documentation/)
+    #cairosvg.svg2png(url=src_file, write_to=out_file)
 
 
 def build_os_icons() -> None:

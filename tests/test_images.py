@@ -10,3 +10,9 @@ def test_icons(capsys):
         src_dir: Path = SCRIPT_PATH.joinpath("data")
         out_dir: Path = SCRIPT_PATH.joinpath("output")
         gonzago.images.optimize_icons(src_dir, out_dir)
+
+def test_svg_to_png(capsys):
+    with capsys.disabled():
+        src_dir: Path = SCRIPT_PATH.joinpath("data/icon.svg")
+        out_dir: Path = SCRIPT_PATH.joinpath("output/icon.png")
+        gonzago.images.svg_to_png(src_dir, out_dir)
