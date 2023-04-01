@@ -108,10 +108,12 @@ def build_templates(src_dir: Path, out_dir: Path):
     print(templates)
 
     # Write palette
-    for rel_path in templates.keys():
+    for rel_path in templates:
         out_file: Path = out_dir.joinpath(rel_path).with_suffix(".gpl").resolve()
         out_file.parent.mkdir(parents=True, exist_ok=True)  # Ensure folders
         print(out_file)
+
+        template = templates[rel_path]
 
         with out_file.open("w") as file:
             file.write("GIMP Palette\n")
