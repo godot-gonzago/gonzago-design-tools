@@ -1,6 +1,6 @@
 ---
-name: Godot 4 Editor Icons
-description: Icon colors based on default editor theme of Godot Engine 4. These colors are replaced by Godot's SVG color mapping based on the chosen theme.
+name: Godot 4 Editor
+description: Colors based on default editor theme of Godot Engine 4. These colors are replaced by Godot's SVG color mapping based on the chosen theme.
 version: 1.0.0
 source: https://github.com/godotengine/godot/blob/4.0/editor/editor_themes.cpp
 colors:
