@@ -108,6 +108,16 @@ def export_png(out_file: Path, template: dict, size: int = 1):
     image.save(out_file, "PNG")
 
 
+@exporter(".x8.png")
+def export_png_8(out_file: Path, template: dict):
+    export_png(out_file, template, 8)
+
+
+@exporter(".x32.png")
+def export_png_8(out_file: Path, template: dict):
+    export_png(out_file, template, 32)
+
+
 @exporter(".gpl")
 def export_gimp(out_file: Path, template: dict):
     with out_file.open("w") as file:
