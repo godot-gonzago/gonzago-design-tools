@@ -133,7 +133,7 @@ def build_templates(src_dir: Path, out_dir: Path):
 
             for color_data in template["colors"]:
                 file.write("\n")
-                for i in [1,2,5]:
+                for i in [1,3,5]:
                     file.write(f"{str(int(color_data['color'][i:i+2], 16))}\t")
                 file.write(color_data["name"])
                 if color_data.get("description", None):
