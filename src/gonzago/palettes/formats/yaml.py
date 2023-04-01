@@ -19,17 +19,17 @@ class YamlPalette(PaletteWriterReader):
             )
 
         with file_path.open() as file:
-            data: dict = yaml.safe_load(file)
+            palette_data: dict = yaml.safe_load(file)
 
         palette: Palette = Palette(
-            data["name"],
-            data.get("description", ""),
-            data.get("version", ""),
-            data.get("author", ""),
-            data.get("source", ""),
+            palette_data["name"],
+            palette_data.get("description", ""),
+            palette_data.get("version", ""),
+            palette_data.get("author", ""),
+            palette_data.get("source", ""),
         )
 
-        for color_data in data["colors"]:
+        for color_data in palette_data["colors"]:
             color: Color = Color(
                 color_data["name"],
                 color_data.get("description", ""),
@@ -38,7 +38,8 @@ class YamlPalette(PaletteWriterReader):
 
             for color_data_key in color_data.keys():
                 if color_data_key.startswith("color-"):
-                    color.variants[color_data_key[5:]] = _read_color_value(
+                    variant_key = color_data_key[5:]
+                    color.variants[variant_key] = _read_color_value(
                         color_data[color_data_key]
                     )
 
