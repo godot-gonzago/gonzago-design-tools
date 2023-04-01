@@ -29,3 +29,9 @@ class Palette:
     author: str = ""
     source: str = ""
     colors: list[Color] = field(default_factory=list)
+
+    def get_variants(self) -> set[str]:
+        variants: set[str] = set[str]
+        for color in self.colors:
+            variants = variants.union(color.variants.keys)
+        return variants
