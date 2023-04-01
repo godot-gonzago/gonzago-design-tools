@@ -8,7 +8,6 @@ class ColorValue(NamedTuple):
     r: int = 0
     g: int = 0
     b: int = 0
-    a: int = 255
 
 
 @dataclass
@@ -17,6 +16,9 @@ class Color:
     description: str = ""
     value: ColorValue = ColorValue()
     variants: dict[str, ColorValue] = field(default_factory=dict)
+
+    def get_variant_value(self, variant: str) -> ColorValue:
+        self.variants.get(variant, self.value)
 
 
 @dataclass

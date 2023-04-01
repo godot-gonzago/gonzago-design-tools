@@ -46,7 +46,7 @@ def get_valid_templates(template_folder: Path):
         schema: dict = yaml.safe_load(schema_file)
 
     # Find valid templates in input folder
-    for template_path in template_folder.rglob("*.pal.yaml"):
+    for template_path in template_folder.rglob("*.pal.y[a]ml"):
         with template_path.open() as template_file:
             template: dict = yaml.safe_load(template_file)
             try:

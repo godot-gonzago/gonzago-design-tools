@@ -39,12 +39,12 @@ properties:
         color:
           description: A rgb hex string representing the colors value
           type: string
-          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+          pattern: ^#([a-fA-F0-9]{6})$
       patternProperties:
         "^color-[A-Za-z_][A-Za-z0-9_]*$":
           description: A rgb hex string representing the variant colors value
           type: string
-          pattern: ^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+          pattern: ^#([a-fA-F0-9]{6})$
       required: [name, color]
       unevaluatedProperties: false
 required: [name, colors]
