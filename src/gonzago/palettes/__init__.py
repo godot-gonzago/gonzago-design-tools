@@ -67,14 +67,14 @@ def build_palettes(src_dir: Path, out_dir: Path):
     print(f"Looking for valid palette templates at {src_dir}...")
 
     templates: dict = dict()
-    for src_file in src_dir.rglob("*.pal.y[a]ml"):
+    for src_file in src_dir.rglob("*.y[a]ml"):
         with src_file.open() as template_file:
             template: dict = yaml.safe_load(template_file)
             try:
                 validate(template, schema)
             except:
                 continue
-            rel_path: Path = src_file.with_suffix("").relative_to(src_dir)
+            rel_path: Path = src_file.relative_to(src_dir)
             templates[rel_path] = template
             print(rel_path)
 
