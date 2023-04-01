@@ -1,14 +1,46 @@
+# <https://www.cyotek.com/cyotek-palette-editor/supported-palette-formats>
+# - 18-bit RGB VGA Palette, pal
+# - 24-bit RGB VGA Palette, pal
+# - Adobe Colour Table, act
+# - Adobe Photoshop Colour Swatch, aco
+# - Adobe Swatch Exchange, ase
+# - CoreDRAW4, pal, xml
+# - DeluxePaint Image, bbm, lbm
+# - Fractint, map
+# - GIMP, gpl
+# - Gravit, gvswatch
+# - Hex, hex
+# - JASC, pal, PspPalette
+# - Microsoft RIFF, pal
+# - Paint.NET, txt
+# <https://lospec.com/palette-list/fuzzyfour>
+# - PNG 1px
+# - PNG 8px
+# - PNG 32px
+# - PAL File (JASC)
+# - Photoshop ASE
+# - Paint.Net TXT
+# - GIMP GPL
+# - HEX File
+# <https://sk1project.net/palettes/>
+# - sK1
+# - Inkscape
+# - GIMP
+# - Scribus
+# - Karbon
+# - Calligra
+# - LibreOffice
+# - CorelDRAW, Corel PhotoPaint
+# - Adobe Illustrator, Adobe InDesign
+# - Adobe Photoshop
+# - Xara Designer, Xara Web Designer
+# <http://www.selapa.net/swatches/colors/fileformats.php>
+# <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 from pathlib import Path
-
-import yaml
-from jsonschema import ValidationError, validate
 
 from gonzago import __version__
 
-from .palette import Palette, Color
-from .io import PaletteReader, PaletteWriter, PaletteWriterReader
-
-__all__ = ["Palette", "Color", "PaletteReader", "PaletteWriter", "PaletteWriterReader"]
+__all__ = ["build_palettes"]
 
 
 EXPORTERS = dict()
@@ -155,7 +187,7 @@ def export_hex(out_file: Path, template: dict):
 #    pass
 
 
-# @exporter(".txt")
+# @exporter(".pal")
 # def export_jasc(out_file: Path, template: dict):
 #    # https://liero.nl/lierohack/docformats/other-jasc.html
 #    # JASC-PAL      <- constant string
