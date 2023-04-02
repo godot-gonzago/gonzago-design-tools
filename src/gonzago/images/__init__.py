@@ -42,6 +42,15 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
         _minimize_svg(src_file, out_file, scour_options)
 
 
+# https://wiki.inkscape.org/wiki/Using_the_Command_Line
+# https://inkscape.org/doc/inkscape-man.html
+def inkscape_to_png() -> None:
+    # shutil.which
+    # https://docs.python.org/3/library/subprocess.html#subprocess.Popen
+    # https://docs.python.org/3/library/subprocess.html#subprocess.run
+    pass
+
+
 def svg_to_png(src_file: Path, out_file: Path) -> None:
     # Sanitize paths
     src_file: Path = src_file.resolve(True)
