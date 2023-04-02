@@ -56,12 +56,13 @@ def exporter(suffix: str):
 
 def build_palettes(src_dir: Path, out_dir: Path):
     import yaml
+    from importlib.resources import files
     from jsonschema import validate
 
     # Load palette schema
-    schema_path: Path = Path(__file__).parent.joinpath("palettes.schema.yaml")
-    with schema_path.open() as schema_file:
-        schema: dict = yaml.safe_load(schema_file)
+    schema: dict = yaml.safe_load(
+        files(__name__).joinpath("palettes.schema.yaml").read_text()
+    )
 
     # Find valid templates in input folder
     print(f"Looking for valid palette templates at {src_dir}...")

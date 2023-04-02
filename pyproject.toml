@@ -25,6 +25,9 @@ classifiers = [
 packages = [
   { include = "gonzago", from = "src" }
 ]
+include = [
+  "gonzago/palettes/palettes.schema.yaml"
+]
 
 [tool.poetry.urls]
 "Issue Tracker" = "https://github.com/godot-gonzago/gonzago-design-tools/issues"

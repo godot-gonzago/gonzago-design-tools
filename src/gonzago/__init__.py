@@ -1,8 +1,8 @@
-__version__ = "0.0.1"
-__all__ = ["core", "palettes", "images", "videos"]
-
+import importlib
 from pathlib import Path
 
+__version__ = importlib.metadata.version("gonzago")
+__all__ = ["core", "palettes", "images", "videos"]
 
 SCRIPTS_PATH: Path = Path(__file__).parent.resolve()
 
