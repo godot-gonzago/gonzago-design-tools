@@ -1,7 +1,5 @@
-# https://docs.python.org/3/library/pathlib.html#methods-and-properties
-# - Path.home()
-# - Path('config.cfg').expanduser()
-# - Points to C:\Users\Username :(
 # https://www.geeksforgeeks.org/python-os-environ-object/
-# https://gist.github.com/jslay88/1fd8a8ba1d05ff2a4810520785a67891
 # https://www.programcreek.com/python/?code=mahart-studio%2Fkivystudio%2Fkivystudio-master%2Fkivystudio%2Ftools%2F__init__.py
+
+# Default value based on git repo? https://github.com/acroz/git-find-repos/blob/master/git_find_repos.py
+# In .git folder in config file > [remote "origin"] > url = https://github.com/godot-gonzago/gonzago-design-tools.git

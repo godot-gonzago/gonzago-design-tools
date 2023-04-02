@@ -38,6 +38,8 @@
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 
 # https://docs.python.org/3/howto/argparse.html
+# https://docs.python.org/3/library/logging.html
+
 from pathlib import Path
 
 from gonzago import __version__
@@ -63,7 +65,7 @@ def build_palettes(src_dir: Path, out_dir: Path):
 
     # Load palette schema
     schema: dict = yaml.safe_load(
-        files(__name__).joinpath("palettes.schema.yaml").read_text()
+        files("gonzago.palettes").joinpath("palettes.schema.yaml").read_text()
     )
 
     # Find valid templates in input folder
