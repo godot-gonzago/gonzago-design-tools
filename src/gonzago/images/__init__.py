@@ -44,10 +44,26 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
 
 # https://wiki.inkscape.org/wiki/Using_the_Command_Line
 # https://inkscape.org/doc/inkscape-man.html
-def inkscape_to_png() -> None:
+def inkscape_to_png(src_file: Path, out_file: Path) -> None:
+    import subprocess
+
     # shutil.which
     # https://docs.python.org/3/library/subprocess.html#subprocess.Popen
     # https://docs.python.org/3/library/subprocess.html#subprocess.run
+
+    inkscape: Path = Path("C:/Program Files/Inkscape/bin/inkscape.exe").resolve()
+    blender: Path = Path("C:/Program Files/Blender Foundation/Blender 3.4/blender.exe").resolve()
+
+    # Sanitize paths
+    src_file: Path = src_file.resolve(True)
+    out_file: Path = out_file.with_suffix(".png").resolve()
+
+    # Ensure folders
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+
+    # Convert
+    # inkscape --export-filename=out_file.png src_file.svg
+    subprocess.run([inkscape, "--export-filename", out_file, src_file])
     pass
 
 
