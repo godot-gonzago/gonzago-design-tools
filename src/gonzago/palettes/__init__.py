@@ -36,6 +36,8 @@
 # - Xara Designer, Xara Web Designer
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
+
+# https://docs.python.org/3/howto/argparse.html
 from pathlib import Path
 
 from gonzago import __version__
