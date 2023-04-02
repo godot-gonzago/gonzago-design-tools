@@ -1,39 +1,5 @@
 # <https://www.cyotek.com/cyotek-palette-editor/supported-palette-formats>
-# - 18-bit RGB VGA Palette, pal
-# - 24-bit RGB VGA Palette, pal
-# - Adobe Colour Table, act
-# - Adobe Photoshop Colour Swatch, aco
-# - Adobe Swatch Exchange, ase
-# - CoreDRAW4, pal, xml
-# - DeluxePaint Image, bbm, lbm
-# - Fractint, map
-# - GIMP, gpl
-# - Gravit, gvswatch
-# - Hex, hex
-# - JASC, pal, PspPalette
-# - Microsoft RIFF, pal
-# - Paint.NET, txt
 # <https://lospec.com/palette-list/fuzzyfour>
-# - PNG 1px
-# - PNG 8px
-# - PNG 32px
-# - PAL File (JASC)
-# - Photoshop ASE
-# - Paint.Net TXT
-# - GIMP GPL
-# - HEX File
-# <https://sk1project.net/palettes/>
-# - sK1
-# - Inkscape
-# - GIMP
-# - Scribus
-# - Karbon
-# - Calligra
-# - LibreOffice
-# - CorelDRAW, Corel PhotoPaint
-# - Adobe Illustrator, Adobe InDesign
-# - Adobe Photoshop
-# - Xara Designer, Xara Web Designer
 # <http://www.selapa.net/swatches/colors/fileformats.php>
 # <https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html>
 
@@ -59,8 +25,9 @@ def exporter(suffix: str):
 
 
 def build_palettes(src_dir: Path, out_dir: Path):
-    import yaml
     from importlib.resources import files
+
+    import yaml
     from jsonschema import validate
 
     # Load palette schema
@@ -160,6 +127,7 @@ def export_hex(out_file: Path, template: dict):
 # @exporter(".ase")
 # def export_adobe_swatch_exchange(out_file: Path, template: dict):
 #    # https://medium.com/swlh/mastering-adobe-color-file-formats-d29e43fde8eb
+#    # http://www.selapa.net/swatches/colors/fileformats.php#adobe_ase
 #    with out_file.open("wb") as file:
 #        # Write header
 #        file.write(b"\x41\x53\x45\x46")  # Signature (Constant: ASEF)
@@ -212,4 +180,22 @@ def export_hex(out_file: Path, template: dict):
 #    # 0 255 0
 #    # 0 0 255
 #    # 255 255 0
+#    pass
+
+
+# @exporter(".kpl")
+# def export_krita(out_file: Path, template: dict):
+#    # https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html
+#    pass
+
+
+# @exporter(".soc")
+# def export_star_office(out_file: Path, template: dict):
+#    # http://www.selapa.net/swatches/colors/fileformats.php#ooo_soc
+#    pass
+
+
+# @exporter(".xml")
+# def export_scribus(out_file: Path, template: dict):
+#    # https://github.com/1j01/anypalette.js
 #    pass
