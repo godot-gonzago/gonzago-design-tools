@@ -1,5 +1,5 @@
 __version__ = "0.0.1"
-__all__ = ["core", "colors", "palettes", "images", "videos"]
+__all__ = ["core", "palettes", "images", "videos"]
 
 from pathlib import Path
 
