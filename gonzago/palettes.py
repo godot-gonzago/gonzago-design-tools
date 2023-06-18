@@ -7,7 +7,7 @@
 # https://docs.python.org/3/library/logging.html
 
 from pathlib import Path
-from typing import Callable, Generator, Iterator, NamedTuple, Optional
+from typing import Callable, Generator, Iterator, List, NamedTuple, Optional
 
 import typer
 import yaml
@@ -180,6 +180,11 @@ def export_hex(out_file: Path, template: dict):
 #    pass
 
 
+# TODO: Check based on id if exporter is desired/available?
+def _get_exporter_ids() -> List[str]:
+    pass
+
+
 def _get_template_schema() -> dict:
     from importlib.resources import files
 
@@ -212,20 +217,24 @@ def _discover_templates(
 def list_templates(
     dir: Annotated[
         Optional[Path],
-        typer.Argument(
-            help="The name of the user to greet",
+        typer.Option(
+            "--dir",
+            "-d",
+            help="Template directory to search.",
+            show_default=False,
             exists=True,
+            file_okay=False,
             dir_okay=True,
             readable=True,
             resolve_path=True,
         ),
     ] = None,
     recursive: Annotated[
-        Optional[bool], typer.Option(help="The name of the user to greet")
+        Optional[bool], typer.Option("--recursive", "-r", help="Search in sub folders.")
     ] = True,
 ):
     """
-    List the valid templates at the directory.
+    List valid palette templates.
     """
     # TODO: Make dir optional and fallback to config dir if ommited! Integrate config creation procedure?
     if dir is None:
@@ -248,6 +257,9 @@ def list_templates(
 
 @app.command("exporters")
 def list_exporters():
+    """
+    List available exporters.
+    """
     table: Table = Table("id", "Name", "Description", "Suffix")
     for id, exporter in EXPORTERS.items():
         table.add_row(id, exporter.name, exporter.description, exporter.suffix)
@@ -259,66 +271,88 @@ def list_exporters():
 
 
 @app.command()
-def build_palettes(
-    src_dir: Annotated[
-        Path, typer.Option(exists=True, dir_okay=True, readable=True, resolve_path=True)
-    ],
-    out_dir: Annotated[
-        Path,
+def build(
+    src_path: Annotated[
+        Optional[Path],
         typer.Option(
+            "--in",
+            "-i",
+            help="Input template file or directory.",
+            exists=True,
+            file_okay=True,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+            show_default=False,
+        ),
+    ] = None,
+    out_dir: Annotated[
+        Optional[Path],
+        typer.Option(
+            "--out",
+            "-o",
+            help="Palettes output direcory.",
+            file_okay=False,
             dir_okay=True,
             writable=True,
             resolve_path=True,
+            show_default=False,
         ),
-    ],
+    ] = None,
+    exporters: Annotated[
+        Optional[List[str]],
+        typer.Option("--export", "-e", help="List of exporters to use."),
+    ] = list[str](EXPORTERS.keys()),
 ):
     """
     Build palettes in all formats.
     """
-
-    from importlib.resources import files
-
-    import yaml
-    from jsonschema import validate
-
-    # Load palette schema
-    schema: dict = yaml.safe_load(
-        files("gonzago").joinpath("palettes.schema.yaml").read_text()
-    )
-
-    # Find valid templates in input folder
-    print(f"Looking for valid palette templates at {src_dir}...")
-
-    templates: dict = dict()
-    for src_file in src_dir.rglob("*.y[a]ml"):
-        with src_file.open() as template_file:
-            template: dict = yaml.safe_load(template_file)
-            try:
-                validate(template, schema)
-            except:
-                continue
-            rel_path: Path = src_file.relative_to(src_dir)
-            templates[rel_path] = template
-            print(rel_path)
-
-    templates_count: int = len(templates)
-    if templates_count == 0:
-        print("No valid palette templates found.")
-        return
-
-    # Call exporters
-    for rel_path in templates:
-        template = templates[rel_path]
-        for _, exporter in EXPORTERS.items():
-            out_file: Path = (
-                out_dir.joinpath(rel_path).with_suffix(exporter.suffix).resolve()
-            )
-            out_file.parent.mkdir(parents=True, exist_ok=True)  # Ensure folders
-            print(out_file)
-            exporter.fn(out_file, template)
+    pass
 
 
-@app.callback()
+#    from importlib.resources import files
+#
+#    import yaml
+#    from jsonschema import validate
+#
+#    # Load palette schema
+#    schema: dict = yaml.safe_load(
+#        files("gonzago").joinpath("palettes.schema.yaml").read_text()
+#    )
+#
+#    # Find valid templates in input folder
+#    print(f"Looking for valid palette templates at {src_dir}...")
+#
+#    templates: dict = dict()
+#    for src_file in src_dir.rglob("*.y[a]ml"):
+#        with src_file.open() as template_file:
+#            template: dict = yaml.safe_load(template_file)
+#            try:
+#                validate(template, schema)
+#            except:
+#                continue
+#            rel_path: Path = src_file.relative_to(src_dir)
+#            templates[rel_path] = template
+#            print(rel_path)
+#
+#    templates_count: int = len(templates)
+#    if templates_count == 0:
+#        print("No valid palette templates found.")
+#        return
+#
+#    # Call exporters
+#    for rel_path in templates:
+#        template = templates[rel_path]
+#        for _, exporter in EXPORTERS.items():
+#            out_file: Path = (
+#                out_dir.joinpath(rel_path).with_suffix(exporter.suffix).resolve()
+#            )
+#            out_file.parent.mkdir(parents=True, exist_ok=True)  # Ensure folders
+#            print(out_file)
+#            exporter.fn(out_file, template)
+
+
+@app.callback(no_args_is_help=True)
 def main():
     """
     Manage users CLI app.
