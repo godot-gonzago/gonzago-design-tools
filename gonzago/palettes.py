@@ -7,7 +7,7 @@
 # https://docs.python.org/3/library/logging.html
 
 from pathlib import Path
-from typing import Iterator
+from typing import Generator, Iterator, Optional
 
 import typer
 from typing_extensions import Annotated
@@ -172,12 +172,17 @@ def _get_template_schema() -> dict:
     return schema
 
 
-def _discover_templates(dir: Path) -> Iterator[tuple[Path, dict]]:
+def _discover_templates(
+    dir: Path, recursive: bool = True
+) -> Iterator[tuple[Path, dict]]:
     import yaml
     from jsonschema import validate
 
     schema: dict = _get_template_schema()
-    for file in dir.rglob("*.y[a]ml"):
+    files: Generator[Path, None, None] = (
+        dir.rglob("*.y[a]ml") if recursive else dir.glob("*.y[a]ml")
+    )
+    for file in files:
         with file.open() as template_file:
             template: dict = yaml.safe_load(template_file)
             try:
@@ -190,8 +195,18 @@ def _discover_templates(dir: Path) -> Iterator[tuple[Path, dict]]:
 @app.command()
 def list(
     dir: Annotated[
-        Path, typer.Option(exists=True, dir_okay=True, readable=True, resolve_path=True)
-    ]
+        Optional[Path],
+        typer.Argument(
+            help="The name of the user to greet",
+            exists=True,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ] = None,
+    recursive: Annotated[
+        Optional[bool], typer.Option(help="The name of the user to greet")
+    ] = True,
 ):
     """
     List the valid templates at the directory.
@@ -200,16 +215,21 @@ def list(
     from rich.table import Table
 
     console: Console = Console()
-    console.print("Listing palette templates:", style="bold")
-    console.print(str(dir), style="italic")
+
+    # TODO: Make dir optional and fallback to config dir if ommited! Integrate config creation procedure?
+    if dir is None:
+        console.print("Try to get dir from config")
+        return
+
     table: Table = Table("Path", "Name", "Description")
-    for file, template in _discover_templates(dir):
+    for file, template in _discover_templates(dir, recursive):
         table.add_row(
             str(file.relative_to(dir)),
             template["name"],
             template.get("description", ""),
         )
     if table.row_count > 0:
+        console.print("Found valid palette templates: {}".format(table.row_count))
         console.print(table)
     else:
         console.print("No valid palette templates found!", style="yellow")
