@@ -24,11 +24,14 @@ def exporter(suffix: str):
 
 
 @app.command()
-def build_palettes(src_dir: Path, out_dir: Path):
+def build_palettes(src: str, out: str):
     from importlib.resources import files
 
     import yaml
     from jsonschema import validate
+
+    src_dir: Path = Path(src)
+    out_dir: Path = Path(out)
 
     # Load palette schema
     schema: dict = yaml.safe_load(

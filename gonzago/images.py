@@ -38,7 +38,10 @@ def _minimize_svg(src_file: Path, out_file: Path, scour_options=_SCOUR_OPTIONS) 
 
 
 @app.command()
-def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -> None:
+def optimize_icons(src: str, out: str, scour_options=_SCOUR_OPTIONS) -> None:
+    src_dir: Path = Path(src)
+    out_dir: Path = Path(out)
+
     for src_file in src_dir.rglob("*.svg"):
         rel_path: Path = src_file.relative_to(src_dir)
         out_file: Path = out_dir.joinpath(rel_path)
@@ -49,8 +52,11 @@ def optimize_icons(src_dir: Path, out_dir: Path, scour_options=_SCOUR_OPTIONS) -
 # https://wiki.inkscape.org/wiki/Using_the_Command_Line
 # https://inkscape.org/doc/inkscape-man.html
 @app.command()
-def inkscape_to_png(src_file: Path, out_file: Path) -> None:
+def inkscape_to_png(src: str, out: str) -> None:
     import subprocess
+
+    src_file: Path = Path(src)
+    out_file: Path = Path(out)
 
     # shutil.which
     # https://docs.python.org/3/library/subprocess.html#subprocess.Popen
@@ -75,7 +81,10 @@ def inkscape_to_png(src_file: Path, out_file: Path) -> None:
 
 
 @app.command()
-def svg_to_png(src_file: Path, out_file: Path) -> None:
+def svg_to_png(src: str, out: str) -> None:
+    src_file: Path = Path(src)
+    out_file: Path = Path(out)
+
     # Sanitize paths
     src_file: Path = src_file.resolve(True)
     out_file: Path = out_file.with_suffix(".png").resolve()
@@ -89,7 +98,7 @@ def svg_to_png(src_file: Path, out_file: Path) -> None:
     svg2png(url=str(src_file), write_to=str(out_file))
 
 
-@app.command()
+#@app.command()
 def build_os_icons(src_files: set[Path], out_dir: Path) -> None:
     import xml.etree.ElementTree as ET
 

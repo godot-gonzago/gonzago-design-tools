@@ -1,8 +1,6 @@
 import typer
 
-import palettes
-import images
-import videos
+from . import palettes, images, videos
 
 app = typer.Typer()
 app.add_typer(palettes.app, name="palettes")
