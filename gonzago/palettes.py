@@ -6,6 +6,7 @@
 # https://docs.python.org/3/howto/argparse.html
 # https://docs.python.org/3/library/logging.html
 
+from importlib.resources import files
 from pathlib import Path
 from typing import Callable, Generator, Iterator, List, NamedTuple, Optional
 
@@ -25,29 +26,28 @@ class TemplateFileInfo(NamedTuple):
 
 class ExporterInfo(NamedTuple):
     suffix: str
-    fn: Callable[[Path, dict], None]
-    name: str
     description: str
+    fn: Callable[[Path, dict], None]
 
 
+TEMPLATE_SCHEMA: dict = yaml.safe_load(
+    files("gonzago").joinpath("palettes.schema.yaml").read_text()
+)
 EXPORTERS = dict[str, ExporterInfo]()
 
 console: Console = Console()
 app = typer.Typer()
 
 
-def exporter(id: str, suffix: str, name: str = "", description: str = "") -> Callable:
+def exporter(id: str, suffix: str, description: str = "") -> Callable:
     def inner(fn: Callable[[Path, dict], None]) -> Callable[[Path, dict], None]:
-        #print(fn.__doc__) # TODO: Get name and description from doc string!
-        EXPORTERS[id] = ExporterInfo(
-            suffix=suffix, fn=fn, name=name, description=description
-        )
+        EXPORTERS[id] = ExporterInfo(suffix=suffix, description=description, fn=fn)
         return fn
 
     return inner
 
 
-@exporter("png", ".png", "PNG", "PNG palette image with size 1px.")
+@exporter("png", ".png", "PNG palette image with size 1px.")
 def export_png(out_file: Path, template: dict, size: int = 1) -> None:
     """
     PNG
@@ -67,17 +67,17 @@ def export_png(out_file: Path, template: dict, size: int = 1) -> None:
     image.save(out_file, "PNG")
 
 
-@exporter("png-8", ".x8.png", "PNG", "PNG palette image with size 8px.")
+@exporter("png-8", ".x8.png", "PNG palette image with size 8px.")
 def export_png_8(out_file: Path, template: dict) -> None:
     export_png(out_file, template, 8)
 
 
-@exporter("png-32", ".x32.png", "PNG", "PNG palette image with size 32px.")
+@exporter("png-32", ".x32.png", "PNG palette image with size 32px.")
 def export_png_8(out_file: Path, template: dict):
     export_png(out_file, template, 32)
 
 
-@exporter("gpl", ".gpl", "Gimp", "Gimp/Inkscape color palette.")
+@exporter("gpl", ".gpl", "Gimp/Inkscape color palette.")
 def export_gimp(out_file: Path, template: dict):
     with out_file.open("w") as file:
         file.write("GIMP Palette\n")
@@ -104,14 +104,14 @@ def export_gimp(out_file: Path, template: dict):
                 file.write(f" - {color_data['description']}")
 
 
-@exporter("hex", ".hex", "HEX", "Simple HEX color palette.")
+@exporter("hex", ".hex", "Simple HEX color palette.")
 def export_hex(out_file: Path, template: dict):
     colors = [c["color"].lstrip("#").lower() for c in template["colors"]]
     with out_file.open("w") as file:
         file.writelines("\n".join(colors))
 
 
-# @exporter("ase", ".ase", "Adobe Swatch Exchange", "Color palette for Adobe products.")
+# @exporter("ase", ".ase", "Color palette for Adobe products (Adobe Swatch Exchange).")
 # def export_adobe_swatch_exchange(out_file: Path, template: dict):
 #    # https://medium.com/swlh/mastering-adobe-color-file-formats-d29e43fde8eb
 #    # http://www.selapa.net/swatches/colors/fileformats.php#adobe_ase
@@ -143,7 +143,7 @@ def export_hex(out_file: Path, template: dict):
 #        file.write(b"\x00\x00\x00\x00")  # Block length (Constant for Group end)
 
 
-# @exporter("paint", ".txt", "Paint.NET", "Paint.NET color palette.")
+# @exporter("paintnet", ".txt", "Paint.NET color palette.")
 # def export_paint_net(out_file: Path, template: dict):
 #    https://www.getpaint.net/doc/latest/WorkingWithPalettes.html
 #    ;paint.net Palette File
@@ -157,7 +157,7 @@ def export_hex(out_file: Path, template: dict):
 #    pass
 
 
-# @exporter("paintshop", ".pal", "Paintshop Pro", "Paintshop Pro color palette.")
+# @exporter("paintshop", ".pal", "Paintshop Pro color palette.")
 # def export_jasc(out_file: Path, template: dict):
 #    # https://liero.nl/lierohack/docformats/other-jasc.html
 #    # JASC-PAL      <- constant string
@@ -170,19 +170,19 @@ def export_hex(out_file: Path, template: dict):
 #    pass
 
 
-# @exporter("krita", ".kpl", "Krita", "Krita color palette.")
+# @exporter("krita", ".kpl", "Krita color palette.")
 # def export_krita(out_file: Path, template: dict):
 #    # https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html
 #    pass
 
 
-# @exporter("office", ".soc", "StartOffice", "Color palette for StarOffice/OpenOffice/LibreOffice.")
+# @exporter("office", ".soc", "Color palette for StarOffice/OpenOffice/LibreOffice.")
 # def export_star_office(out_file: Path, template: dict):
 #    # http://www.selapa.net/swatches/colors/fileformats.php#ooo_soc
 #    pass
 
 
-# @exporter("scribus", ".xml", "Scribus", "Color palette for Scribus.")
+# @exporter("scribus", ".xml", "Color palette for Scribus.")
 # def export_scribus(out_file: Path, template: dict):
 #    # https://github.com/1j01/anypalette.js
 #    pass
@@ -193,21 +193,11 @@ def _get_exporter_ids() -> List[str]:
     pass
 
 
-def _get_template_schema() -> dict:
-    from importlib.resources import files
-
-    schema: dict = yaml.safe_load(
-        files("gonzago").joinpath("palettes.schema.yaml").read_text()
-    )
-    return schema
-
-
 def _discover_templates(
     dir: Path, recursive: bool = True
 ) -> Iterator[TemplateFileInfo]:
     from jsonschema import validate
 
-    schema: dict = _get_template_schema()
     files: Generator[Path, None, None] = (
         dir.rglob("*.y[a]ml") if recursive else dir.glob("*.y[a]ml")
     )
@@ -215,7 +205,7 @@ def _discover_templates(
         with file.open() as template_file:
             template: dict = yaml.safe_load(template_file)
             try:
-                validate(template, schema)
+                validate(template, TEMPLATE_SCHEMA)
             except:
                 del template
                 continue
@@ -272,14 +262,15 @@ def list_exporters():
     """
     List available exporters.
     """
-    table: Table = Table("id", "Name", "Description", "Suffix")
-    for id, (suffix, _, name, description) in EXPORTERS.items():
-        table.add_row(id, name, description, suffix)
-    if table.row_count > 0:
-        console.print(f"Available exporters: {table.row_count}")
-        console.print(table)
-    else:
+    count: int = len(EXPORTERS)
+    if count == 0:
         console.print("No exporters available!", style="yellow")
+        return
+    console.print(f"Available exporters: {count}")
+    table: Table = Table("ID", "Suffix", "Description")
+    for id, (suffix, description, _) in EXPORTERS.items():
+        table.add_row(id, suffix, description)
+    console.print(table)
 
 
 @app.command("build")
