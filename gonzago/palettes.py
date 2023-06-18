@@ -37,7 +37,8 @@ app = typer.Typer()
 
 
 def exporter(id: str, suffix: str, name: str = "", description: str = "") -> Callable:
-    def inner(fn) -> Callable[[Path, dict], None]:
+    def inner(fn: Callable[[Path, dict], None]) -> Callable[[Path, dict], None]:
+        #print(fn.__doc__) # TODO: Get name and description from doc string!
         EXPORTERS[id] = ExporterInfo(
             suffix=suffix, fn=fn, name=name, description=description
         )
@@ -48,6 +49,11 @@ def exporter(id: str, suffix: str, name: str = "", description: str = "") -> Cal
 
 @exporter("png", ".png", "PNG", "PNG palette image with size 1px.")
 def export_png(out_file: Path, template: dict, size: int = 1) -> None:
+    """
+    PNG
+
+    PNG palette image with size 1px.
+    """
     from PIL import Image, ImageDraw
 
     color_count: int = len(template["colors"])
