@@ -7,6 +7,7 @@
 # https://docs.python.org/3/library/logging.html
 
 from pathlib import Path
+from typing import Iterator
 
 import typer
 from typing_extensions import Annotated
@@ -171,12 +172,11 @@ def _get_template_schema() -> dict:
     return schema
 
 
-def _discover_templates(dir: Path) -> dict:
+def _discover_templates(dir: Path) -> Iterator[tuple[Path, dict]]:
     import yaml
     from jsonschema import validate
 
     schema: dict = _get_template_schema()
-    templates: dict = dict()
     for file in dir.rglob("*.y[a]ml"):
         with file.open() as template_file:
             template: dict = yaml.safe_load(template_file)
@@ -184,9 +184,7 @@ def _discover_templates(dir: Path) -> dict:
                 validate(template, schema)
             except:
                 continue
-            rel_path: Path = file.relative_to(dir)
-            templates[rel_path] = template
-    return templates
+            yield file, template
 
 
 @app.command()
@@ -198,9 +196,23 @@ def list(
     """
     List the valid templates at the directory.
     """
-    templates: dict = _discover_templates(dir)
-    for rel_path in templates:
-        print("-", rel_path)
+    from rich.console import Console
+    from rich.table import Table
+
+    console: Console = Console()
+    console.print("Listing palette templates:", style="bold")
+    console.print(str(dir), style="italic")
+    table: Table = Table("Path", "Name", "Description")
+    for file, template in _discover_templates(dir):
+        table.add_row(
+            str(file.relative_to(dir)),
+            template["name"],
+            template.get("description", ""),
+        )
+    if table.row_count > 0:
+        console.print(table)
+    else:
+        console.print("No valid palette templates found!", style="yellow")
 
 
 @app.command()
