@@ -9,6 +9,7 @@
 from pathlib import Path
 
 import typer
+from typing_extensions import Annotated
 
 app = typer.Typer()
 
@@ -24,14 +25,27 @@ def exporter(suffix: str):
 
 
 @app.command()
-def build_palettes(src: str, out: str):
+def build_palettes(
+    src_dir: Annotated[
+        Path, typer.Option(exists=True, dir_okay=True, readable=True, resolve_path=True)
+    ],
+    out_dir: Annotated[
+        Path,
+        typer.Option(
+            dir_okay=True,
+            writable=True,
+            resolve_path=True,
+        ),
+    ],
+):
+    """
+    Build palettes in all formats.
+    """
+
     from importlib.resources import files
 
     import yaml
     from jsonschema import validate
-
-    src_dir: Path = Path(src)
-    out_dir: Path = Path(out)
 
     # Load palette schema
     schema: dict = yaml.safe_load(
@@ -202,6 +216,18 @@ def export_hex(out_file: Path, template: dict):
 # def export_scribus(out_file: Path, template: dict):
 #    # https://github.com/1j01/anypalette.js
 #    pass
+
+
+@app.callback()
+def main():
+    """
+    Manage users CLI app.
+
+    Use it with the create command.
+
+    A new user with the given NAME will be created.
+    """
+
 
 if __name__ == "__main__":
     app()

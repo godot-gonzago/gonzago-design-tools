@@ -8,5 +8,17 @@ import typer
 
 app = typer.Typer()
 
+
+@app.callback()
+def main():
+    """
+    Manage users CLI app.
+
+    Use it with the create command.
+
+    A new user with the given NAME will be created.
+    """
+
+
 if __name__ == "__main__":
     app()

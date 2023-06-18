@@ -2,6 +2,7 @@ from pathlib import Path
 
 import typer
 from scour import scour
+from typing_extensions import Annotated
 
 app = typer.Typer()
 
@@ -38,10 +39,26 @@ def _minimize_svg(src_file: Path, out_file: Path, scour_options=_SCOUR_OPTIONS) 
 
 
 @app.command()
-def optimize_icons(src: str, out: str, scour_options=_SCOUR_OPTIONS) -> None:
-    src_dir: Path = Path(src)
-    out_dir: Path = Path(out)
-
+def optimize_icons(
+    src_dir: Annotated[
+        Path,
+        typer.Option(
+            exists=True,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    out_dir: Annotated[
+        Path,
+        typer.Option(
+            dir_okay=True,
+            writable=True,
+            resolve_path=True,
+        ),
+    ],
+    scour_options=_SCOUR_OPTIONS,
+) -> None:
     for src_file in src_dir.rglob("*.svg"):
         rel_path: Path = src_file.relative_to(src_dir)
         out_file: Path = out_dir.joinpath(rel_path)
@@ -52,11 +69,26 @@ def optimize_icons(src: str, out: str, scour_options=_SCOUR_OPTIONS) -> None:
 # https://wiki.inkscape.org/wiki/Using_the_Command_Line
 # https://inkscape.org/doc/inkscape-man.html
 @app.command()
-def inkscape_to_png(src: str, out: str) -> None:
+def inkscape_to_png(
+    src_file: Annotated[
+        Path,
+        typer.Option(
+            exists=True,
+            file_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    out_file: Annotated[
+        Path,
+        typer.Option(
+            file_okay=True,
+            writable=True,
+            resolve_path=True,
+        ),
+    ],
+) -> None:
     import subprocess
-
-    src_file: Path = Path(src)
-    out_file: Path = Path(out)
 
     # shutil.which
     # https://docs.python.org/3/library/subprocess.html#subprocess.Popen
@@ -81,10 +113,25 @@ def inkscape_to_png(src: str, out: str) -> None:
 
 
 @app.command()
-def svg_to_png(src: str, out: str) -> None:
-    src_file: Path = Path(src)
-    out_file: Path = Path(out)
-
+def svg_to_png(
+    src_file: Annotated[
+        Path,
+        typer.Option(
+            exists=True,
+            file_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    out_file: Annotated[
+        Path,
+        typer.Option(
+            file_okay=True,
+            writable=True,
+            resolve_path=True,
+        ),
+    ],
+) -> None:
     # Sanitize paths
     src_file: Path = src_file.resolve(True)
     out_file: Path = out_file.with_suffix(".png").resolve()
@@ -98,7 +145,7 @@ def svg_to_png(src: str, out: str) -> None:
     svg2png(url=str(src_file), write_to=str(out_file))
 
 
-#@app.command()
+# @app.command()
 def build_os_icons(src_files: set[Path], out_dir: Path) -> None:
     import xml.etree.ElementTree as ET
 
@@ -175,6 +222,17 @@ def build_os_icons(src_files: set[Path], out_dir: Path) -> None:
 @app.command()
 def build_splash_image() -> None:
     pass
+
+
+@app.callback()
+def main():
+    """
+    Manage users CLI app.
+
+    Use it with the create command.
+
+    A new user with the given NAME will be created.
+    """
 
 
 if __name__ == "__main__":
