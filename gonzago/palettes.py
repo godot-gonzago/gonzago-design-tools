@@ -8,11 +8,6 @@
 
 from pathlib import Path
 
-from gonzago import __version__
-
-__all__ = ["build_palettes"]
-
-
 EXPORTERS = dict()
 
 
@@ -32,7 +27,7 @@ def build_palettes(src_dir: Path, out_dir: Path):
 
     # Load palette schema
     schema: dict = yaml.safe_load(
-        files("gonzago.palettes").joinpath("palettes.schema.yaml").read_text()
+        files("gonzago").joinpath("palettes.schema.yaml").read_text()
     )
 
     # Find valid templates in input folder

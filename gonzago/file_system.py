@@ -3,7 +3,7 @@ from os import PathLike, stat, walk
 from pathlib import Path
 
 import yaml
-from . import paths as Paths
+import paths as Paths
 
 # https://stackoverflow.com/questions/16981921/relative-imports-in-python-3
 # https://techwithtech.com/importerror-attempted-relative-import-with-no-known-parent-package/
