@@ -10,9 +10,13 @@ from pathlib import Path
 from typing import Generator, Iterator, Optional
 
 import typer
+import yaml
+from rich.console import Console
+from rich.table import Table
 from typing_extensions import Annotated
 
 app = typer.Typer()
+console: Console = Console()
 
 EXPORTERS = dict()
 
@@ -164,8 +168,6 @@ def export_hex(out_file: Path, template: dict):
 def _get_template_schema() -> dict:
     from importlib.resources import files
 
-    import yaml
-
     schema: dict = yaml.safe_load(
         files("gonzago").joinpath("palettes.schema.yaml").read_text()
     )
@@ -175,7 +177,6 @@ def _get_template_schema() -> dict:
 def _discover_templates(
     dir: Path, recursive: bool = True
 ) -> Iterator[tuple[Path, dict]]:
-    import yaml
     from jsonschema import validate
 
     schema: dict = _get_template_schema()
@@ -211,11 +212,6 @@ def list(
     """
     List the valid templates at the directory.
     """
-    from rich.console import Console
-    from rich.table import Table
-
-    console: Console = Console()
-
     # TODO: Make dir optional and fallback to config dir if ommited! Integrate config creation procedure?
     if dir is None:
         console.print("Try to get dir from config")
