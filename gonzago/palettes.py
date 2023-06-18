@@ -8,6 +8,10 @@
 
 from pathlib import Path
 
+import typer
+
+app = typer.Typer()
+
 EXPORTERS = dict()
 
 
@@ -19,6 +23,7 @@ def exporter(suffix: str):
     return inner
 
 
+@app.command()
 def build_palettes(src_dir: Path, out_dir: Path):
     from importlib.resources import files
 
@@ -194,3 +199,6 @@ def export_hex(out_file: Path, template: dict):
 # def export_scribus(out_file: Path, template: dict):
 #    # https://github.com/1j01/anypalette.js
 #    pass
+
+if __name__ == "__main__":
+    app()

@@ -1,12 +1,13 @@
-import argparse
+import typer
 
-import click
+import palettes
+import images
+import videos
 
-
-@click.command()
-def main():
-    click.echo("Hello!")
-
+app = typer.Typer()
+app.add_typer(palettes.app, name="palettes")
+app.add_typer(images.app, name="images")
+app.add_typer(videos.app, name="videos")
 
 if __name__ == "__main__":
-    exit(main())
+    app()

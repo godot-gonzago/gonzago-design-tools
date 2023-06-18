@@ -3,3 +3,10 @@
 # https://docs.blender.org/manual/en/latest/files/media/video_formats.html
 # https://github.com/kkroening/ffmpeg-python
 # https://github.com/jonghwanhyeon/python-ffmpeg
+
+import typer
+
+app = typer.Typer()
+
+if __name__ == "__main__":
+    app()
