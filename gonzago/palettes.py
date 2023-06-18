@@ -24,64 +24,6 @@ def exporter(suffix: str):
     return inner
 
 
-@app.command()
-def build_palettes(
-    src_dir: Annotated[
-        Path, typer.Option(exists=True, dir_okay=True, readable=True, resolve_path=True)
-    ],
-    out_dir: Annotated[
-        Path,
-        typer.Option(
-            dir_okay=True,
-            writable=True,
-            resolve_path=True,
-        ),
-    ],
-):
-    """
-    Build palettes in all formats.
-    """
-
-    from importlib.resources import files
-
-    import yaml
-    from jsonschema import validate
-
-    # Load palette schema
-    schema: dict = yaml.safe_load(
-        files("gonzago").joinpath("palettes.schema.yaml").read_text()
-    )
-
-    # Find valid templates in input folder
-    print(f"Looking for valid palette templates at {src_dir}...")
-
-    templates: dict = dict()
-    for src_file in src_dir.rglob("*.y[a]ml"):
-        with src_file.open() as template_file:
-            template: dict = yaml.safe_load(template_file)
-            try:
-                validate(template, schema)
-            except:
-                continue
-            rel_path: Path = src_file.relative_to(src_dir)
-            templates[rel_path] = template
-            print(rel_path)
-
-    templates_count: int = len(templates)
-    if templates_count == 0:
-        print("No valid palette templates found.")
-        return
-
-    # Call exporters
-    for rel_path in templates:
-        template = templates[rel_path]
-        for suffix in EXPORTERS:
-            out_file: Path = out_dir.joinpath(rel_path).with_suffix(suffix).resolve()
-            out_file.parent.mkdir(parents=True, exist_ok=True)  # Ensure folders
-            print(out_file)
-            EXPORTERS[suffix](out_file, template)
-
-
 @exporter(".png")
 def export_png(out_file: Path, template: dict, size: int = 1):
     from PIL import Image, ImageDraw
@@ -216,6 +158,107 @@ def export_hex(out_file: Path, template: dict):
 # def export_scribus(out_file: Path, template: dict):
 #    # https://github.com/1j01/anypalette.js
 #    pass
+
+
+def _get_template_schema() -> dict:
+    from importlib.resources import files
+
+    import yaml
+
+    schema: dict = yaml.safe_load(
+        files("gonzago").joinpath("palettes.schema.yaml").read_text()
+    )
+    return schema
+
+
+def _discover_templates(dir: Path) -> dict:
+    import yaml
+    from jsonschema import validate
+
+    schema: dict = _get_template_schema()
+    templates: dict = dict()
+    for file in dir.rglob("*.y[a]ml"):
+        with file.open() as template_file:
+            template: dict = yaml.safe_load(template_file)
+            try:
+                validate(template, schema)
+            except:
+                continue
+            rel_path: Path = file.relative_to(dir)
+            templates[rel_path] = template
+    return templates
+
+
+@app.command()
+def list(
+    dir: Annotated[
+        Path, typer.Option(exists=True, dir_okay=True, readable=True, resolve_path=True)
+    ]
+):
+    """
+    List the valid templates at the directory.
+    """
+    templates: dict = _discover_templates(dir)
+    for rel_path in templates:
+        print("-", rel_path)
+
+
+@app.command()
+def build_palettes(
+    src_dir: Annotated[
+        Path, typer.Option(exists=True, dir_okay=True, readable=True, resolve_path=True)
+    ],
+    out_dir: Annotated[
+        Path,
+        typer.Option(
+            dir_okay=True,
+            writable=True,
+            resolve_path=True,
+        ),
+    ],
+):
+    """
+    Build palettes in all formats.
+    """
+
+    from importlib.resources import files
+
+    import yaml
+    from jsonschema import validate
+
+    # Load palette schema
+    schema: dict = yaml.safe_load(
+        files("gonzago").joinpath("palettes.schema.yaml").read_text()
+    )
+
+    # Find valid templates in input folder
+    print(f"Looking for valid palette templates at {src_dir}...")
+
+    templates: dict = dict()
+    for src_file in src_dir.rglob("*.y[a]ml"):
+        with src_file.open() as template_file:
+            template: dict = yaml.safe_load(template_file)
+            try:
+                validate(template, schema)
+            except:
+                continue
+            rel_path: Path = src_file.relative_to(src_dir)
+            templates[rel_path] = template
+            print(rel_path)
+
+    templates_count: int = len(templates)
+    if templates_count == 0:
+        print("No valid palette templates found.")
+        return
+
+    # Call exporters
+    for rel_path in templates:
+        template = templates[rel_path]
+        for suffix in EXPORTERS:
+            out_file: Path = out_dir.joinpath(rel_path).with_suffix(suffix).resolve()
+            out_file.parent.mkdir(parents=True, exist_ok=True)  # Ensure folders
+            print(out_file)
+            EXPORTERS[suffix](out_file, template)
 
 
 @app.callback()
