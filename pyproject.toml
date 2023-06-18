@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gonzago"
+name = "Gonzago Design Tools"
 version = "0.0.1"
 description = "Automation and tooling for Gonzago Framework design elements."
 authors = [

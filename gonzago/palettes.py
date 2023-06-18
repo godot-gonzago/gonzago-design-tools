@@ -30,8 +30,8 @@ class ExporterInfo(NamedTuple):
 
 EXPORTERS = dict[str, ExporterInfo]()
 
-app = typer.Typer()
 console: Console = Console()
+app = typer.Typer()
 
 
 def exporter(id: str, suffix: str, name: str = "", description: str = "") -> Callable:
@@ -249,7 +249,7 @@ def list_templates(
             template.get("description", ""),
         )
     if table.row_count > 0:
-        console.print("Found valid palette templates: {}".format(table.row_count))
+        console.print(f"Found valid palette templates: {table.row_count}")
         console.print(table)
     else:
         console.print("No valid palette templates found!", style="yellow")
@@ -264,13 +264,13 @@ def list_exporters():
     for id, exporter in EXPORTERS.items():
         table.add_row(id, exporter.name, exporter.description, exporter.suffix)
     if table.row_count > 0:
-        console.print("Available exporters: {}".format(table.row_count))
+        console.print(f"Available exporters: {table.row_count}")
         console.print(table)
     else:
         console.print("No exporters available!", style="yellow")
 
 
-@app.command()
+@app.command("build")
 def build(
     src_path: Annotated[
         Optional[Path],
@@ -309,6 +309,14 @@ def build(
     """
     pass
 
+
+# TODO: Check and validate exporters
+
+#    if src_path is None:
+#        src_path = # TODO: Get from config
+
+#    if out_dir is None:
+#        out_dir = # TODO: Get from config
 
 #    from importlib.resources import files
 #
@@ -355,12 +363,9 @@ def build(
 @app.callback(no_args_is_help=True)
 def main():
     """
-    Manage users CLI app.
-
-    Use it with the create command.
-
-    A new user with the given NAME will be created.
+    Color palette tools.
     """
+    pass
 
 
 if __name__ == "__main__":

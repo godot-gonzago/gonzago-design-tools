@@ -5,6 +5,9 @@
     }
   },
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
-  "python.formatting.provider": "black",
+  "python.formatting.provider": "none",
   "autoDocstring.docstringFormat": "sphinx",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
 }
