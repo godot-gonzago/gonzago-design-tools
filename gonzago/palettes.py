@@ -18,7 +18,9 @@ from typing_extensions import Annotated
 
 class TemplateFileInfo(NamedTuple):
     path: Path
-    data: dict
+    name: str
+    description: str
+    color_count: int
 
 
 class ExporterInfo(NamedTuple):
@@ -209,8 +211,16 @@ def _discover_templates(
             try:
                 validate(template, schema)
             except:
+                del template
                 continue
-            yield file, template
+            info: TemplateFileInfo = (
+                file,
+                template["name"],
+                template.get("description", ""),
+                len(template["colors"]),
+            )
+            del template
+            yield info
 
 
 @app.command("templates")
@@ -241,13 +251,9 @@ def list_templates(
         console.print("Try to get dir from config")
         return
 
-    table: Table = Table("Path", "Name", "Description")
-    for file, template in _discover_templates(dir, recursive):
-        table.add_row(
-            str(file.relative_to(dir)),
-            template["name"],
-            template.get("description", ""),
-        )
+    table: Table = Table("Path", "Name", "Description", "Colors")
+    for file, name, description, colors in _discover_templates(dir, recursive):
+        table.add_row(str(file.relative_to(dir)), name, description, str(colors))
     if table.row_count > 0:
         console.print(f"Found valid palette templates: {table.row_count}")
         console.print(table)
@@ -261,8 +267,8 @@ def list_exporters():
     List available exporters.
     """
     table: Table = Table("id", "Name", "Description", "Suffix")
-    for id, exporter in EXPORTERS.items():
-        table.add_row(id, exporter.name, exporter.description, exporter.suffix)
+    for id, (suffix, _, name, description) in EXPORTERS.items():
+        table.add_row(id, name, description, suffix)
     if table.row_count > 0:
         console.print(f"Available exporters: {table.row_count}")
         console.print(table)
