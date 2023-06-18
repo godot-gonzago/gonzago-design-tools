@@ -7,7 +7,7 @@
 # https://docs.python.org/3/library/logging.html
 
 from pathlib import Path
-from typing import Generator, Iterator, Optional
+from typing import Callable, Generator, Iterator, NamedTuple, Optional
 
 import typer
 import yaml
@@ -18,19 +18,29 @@ from typing_extensions import Annotated
 app = typer.Typer()
 console: Console = Console()
 
-EXPORTERS = dict()
+
+class ExporterInfo(NamedTuple):
+    name: str
+    description: str
+    suffix: str
+    fn: Callable[[Path, dict], None]
 
 
-def exporter(suffix: str):
-    def inner(fn):
-        EXPORTERS[suffix] = fn
+EXPORTERS = dict[str, ExporterInfo]()
+
+
+def exporter(id: str, name: str, description: str, suffix: str) -> Callable:
+    def inner(fn) -> Callable[[Path, dict], None]:
+        EXPORTERS[id] = ExporterInfo(
+            name=name, description=description, suffix=suffix, fn=fn
+        )
         return fn
 
     return inner
 
 
-@exporter(".png")
-def export_png(out_file: Path, template: dict, size: int = 1):
+@exporter("png", "PNG", "PNG palette image with size 1px.", ".png")
+def export_png(out_file: Path, template: dict, size: int = 1) -> None:
     from PIL import Image, ImageDraw
 
     color_count: int = len(template["colors"])
@@ -44,17 +54,17 @@ def export_png(out_file: Path, template: dict, size: int = 1):
     image.save(out_file, "PNG")
 
 
-@exporter(".x8.png")
-def export_png_8(out_file: Path, template: dict):
+@exporter("png-8", "PNG", "PNG palette image with size 8px.", ".x8.png")
+def export_png_8(out_file: Path, template: dict) -> None:
     export_png(out_file, template, 8)
 
 
-@exporter(".x32.png")
+@exporter("png-32", "PNG", "PNG palette image with size 32px.", ".x32.png")
 def export_png_8(out_file: Path, template: dict):
     export_png(out_file, template, 32)
 
 
-@exporter(".gpl")
+@exporter("gpl", "Gimp", "Gimp/Inkscape color palette.", ".gpl")
 def export_gimp(out_file: Path, template: dict):
     with out_file.open("w") as file:
         file.write("GIMP Palette\n")
@@ -81,14 +91,14 @@ def export_gimp(out_file: Path, template: dict):
                 file.write(f" - {color_data['description']}")
 
 
-@exporter(".hex")
+@exporter("hex", "HEX", "Simple HEX color palette.", ".hex")
 def export_hex(out_file: Path, template: dict):
     colors = [c["color"].lstrip("#").lower() for c in template["colors"]]
     with out_file.open("w") as file:
         file.writelines("\n".join(colors))
 
 
-# @exporter(".ase")
+# @exporter("ase", "Adobe Swatch Exchange", "Color palette for Adobe products.", ".ase")
 # def export_adobe_swatch_exchange(out_file: Path, template: dict):
 #    # https://medium.com/swlh/mastering-adobe-color-file-formats-d29e43fde8eb
 #    # http://www.selapa.net/swatches/colors/fileformats.php#adobe_ase
@@ -120,7 +130,7 @@ def export_hex(out_file: Path, template: dict):
 #        file.write(b"\x00\x00\x00\x00")  # Block length (Constant for Group end)
 
 
-# @exporter(".txt")
+# @exporter("paint", "Paint.NET", "Paint.NET color palette.", ".txt")
 # def export_paint_net(out_file: Path, template: dict):
 #    https://www.getpaint.net/doc/latest/WorkingWithPalettes.html
 #    ;paint.net Palette File
@@ -134,7 +144,7 @@ def export_hex(out_file: Path, template: dict):
 #    pass
 
 
-# @exporter(".pal")
+# @exporter("paintshop", "Paintshop Pro", "Paintshop Pro color palette.", ".pal")
 # def export_jasc(out_file: Path, template: dict):
 #    # https://liero.nl/lierohack/docformats/other-jasc.html
 #    # JASC-PAL      <- constant string
@@ -147,19 +157,19 @@ def export_hex(out_file: Path, template: dict):
 #    pass
 
 
-# @exporter(".kpl")
+# @exporter("krita", "Krita", "Krita color palette.", ".kpl")
 # def export_krita(out_file: Path, template: dict):
 #    # https://docs.krita.org/en/untranslatable_pages/kpl_defintion.html
 #    pass
 
 
-# @exporter(".soc")
+# @exporter("office", "StartOffice", "Color palette for StarOffice/OpenOffice/LibreOffice.", ".soc")
 # def export_star_office(out_file: Path, template: dict):
 #    # http://www.selapa.net/swatches/colors/fileformats.php#ooo_soc
 #    pass
 
 
-# @exporter(".xml")
+# @exporter("scribus", "Scribus", "Color palette for Scribus.", ".xml")
 # def export_scribus(out_file: Path, template: dict):
 #    # https://github.com/1j01/anypalette.js
 #    pass
@@ -193,8 +203,8 @@ def _discover_templates(
             yield file, template
 
 
-@app.command()
-def list(
+@app.command("templates")
+def list_templates(
     dir: Annotated[
         Optional[Path],
         typer.Argument(
@@ -229,6 +239,19 @@ def list(
         console.print(table)
     else:
         console.print("No valid palette templates found!", style="yellow")
+
+
+@app.command("exporters")
+def list_exporters():
+    table: Table = Table("id", "Name", "Description", "Suffix")
+    for id in EXPORTERS:
+        exporter: ExporterInfo = EXPORTERS[id]
+        table.add_row(id, exporter.name, exporter.description, exporter.suffix)
+    if table.row_count > 0:
+        console.print("Available exporters: {}".format(table.row_count))
+        console.print(table)
+    else:
+        console.print("No exporters available!", style="yellow")
 
 
 @app.command()
@@ -282,11 +305,14 @@ def build_palettes(
     # Call exporters
     for rel_path in templates:
         template = templates[rel_path]
-        for suffix in EXPORTERS:
-            out_file: Path = out_dir.joinpath(rel_path).with_suffix(suffix).resolve()
+        for id in EXPORTERS:
+            exporter: ExporterInfo = EXPORTERS[id]
+            out_file: Path = (
+                out_dir.joinpath(rel_path).with_suffix(exporter.suffix).resolve()
+            )
             out_file.parent.mkdir(parents=True, exist_ok=True)  # Ensure folders
             print(out_file)
-            EXPORTERS[suffix](out_file, template)
+            exporter.fn(out_file, template)
 
 
 @app.callback()
